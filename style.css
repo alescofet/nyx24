@@ -1,0 +1,142 @@
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set background image for the dialog scene */
+.dialog-scene {
+  background-image: url('./public/coffee_shop_background.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Style for the dialog boxes */
+.dialog-box {
+  width: 35%;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+  overflow: hidden; /* Add this line to contain the text */
+}
+
+/* Style for the left dialog box */
+.left-dialog-box {
+  justify-content: flex-start;
+  align-self: flex-end; /* Change this line to align the left dialog box to the top */
+}
+
+/* Style for the right dialog box */
+.right-dialog-box {
+  justify-content: flex-start;
+  align-self: flex-end;
+}
+
+/* Style for the avatars */
+.avatar {
+  min-width: 150px;
+  min-height: 150px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Style for the left avatar */
+.left-avatar {
+  background-image: url('./public/alex.png');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Style for the right avatar */
+.right-avatar {
+  background-image: url('./public/nicky.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.dialog-content {
+  max-width: 90%;
+}
+
+/* Style for the name and text in the dialog boxes */
+.name {
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.text-container {
+  max-height: 200px; /* Add this line to limit the height of the text container */
+  max-width: 100%; /* Add this line to limit the width of the text container */
+}
+
+.text {
+  flex-grow: 1; /* Add this line to allow the text container to grow vertically */
+  max-width: 100%;
+  color: #fff;
+  font-size: 16px;
+  word-wrap: break-word; /* Add this line to allow long words to wrap */
+}
+
+/* Animation for the shrinking and fading of the non-speaking dialog box */
+@keyframes shrink {
+  0% {
+    width: 60%;
+    opacity: 1;
+  }
+  100% {
+    width: 20%;
+    opacity: 0.5;
+  }
+}
+
+/* Modify the style for the dialog boxes during shrinking animation */
+.dialog-box.shrink {
+  animation: shrink 0.5s forwards;
+  width: 20%; /* Adjust the width to desired size */
+  padding: 0; /* Remove padding to hide the text */
+}
+
+/* Hide the text elements during shrinking animation */
+.dialog-box.shrink .text {
+  display: none;
+}
+
+.dialog-box.shrink .avatar {
+  min-width: 50px;
+  min-height: 50px;
+}
+
+/* Animation for the growing of the speaking dialog box */
+@keyframes grow {
+  0% {
+    width: 20%;
+    opacity: 0.5;
+  }
+  100% {
+    width: 60%;
+    opacity: 1;
+  }
+}
+
+.dialog-box.grow {
+  animation: grow 0.5s forwards;
+}
+
+.dialog-box.grow .text {
+  word-break: normal;
+}
