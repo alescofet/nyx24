@@ -74,3 +74,64 @@ const leftActive = () => {
 leftTextSelector.classList.add('typewriter');
 rightTextSelector.classList.add('typewriter');
 leftActive()
+
+// Show card
+
+const cardContainer = document.querySelector('.card-container')
+const showCard = ()=>{
+    cardContainer.classList.toggle('hidden')
+}
+let cardButton = document.getElementById("card-button");
+cardButton.addEventListener("click",showCard)
+
+//Card Scripts
+
+const cardList = document.querySelectorAll('.card');
+const cardMiddleList = document.querySelectorAll('.card-middle');
+const cardBottomList = document.querySelectorAll('.card-bottom');
+const r = 10;
+
+
+let angle = 0, x, y;
+let side = -1
+let animationOngoing = false
+
+function loop(cardNum) {
+	angle+= 0.2*side;
+	if(angle*r === 90 && side === 1){
+		cardList[cardNum].classList.toggle('card-back')
+		cardMiddleList[cardNum].classList.toggle('hidden')
+		cardBottomList[cardNum].classList.toggle('hidden')
+	}
+	if(angle*r === 90 && side === -1){
+		cardList[cardNum].classList.toggle('card-back')
+		cardMiddleList[cardNum].classList.toggle('hidden')
+		cardBottomList[cardNum].classList.toggle('hidden')
+	}
+	if(angle*r > 180 || angle*r < 0) {
+		animationOngoing = false
+		return
+	}
+
+    x = Math.cos(angle) * r;
+    y = angle * r;
+	
+    cardList[cardNum].style.transform = `rotateX(${0}deg) rotateY(${y}deg)`;
+
+    requestAnimationFrame(()=> loop(cardNum));
+	
+}
+
+function trigger(event) {
+  const cardNum = event.target.offsetParent.id.split("-")[1]
+	if(!animationOngoing){
+		animationOngoing = true	
+		side = side*-1
+		loop(cardNum-1)
+	}
+}
+
+cardList.forEach((card)=>{
+  card.addEventListener("click",trigger)
+})
+
