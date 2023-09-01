@@ -97,35 +97,37 @@ let side = -1
 let animationOngoing = false
 
 function loop(cardNum) {
-	angle+= 0.2*side;
-	if(angle*r === 90 && side === 1){
-		cardList[cardNum].classList.toggle('card-back')
-		cardMiddleList[cardNum].classList.toggle('hidden')
-		cardBottomList[cardNum].classList.toggle('hidden')
-	}
-	if(angle*r === 90 && side === -1){
+    angle+= 0.2*side;
+    if(angle*r === 90 && side === 1){
+      cardList[cardNum].classList.toggle('card-back')
+      cardMiddleList[cardNum].classList.toggle('hidden')
+      cardBottomList[cardNum].classList.toggle('hidden')
+    }
+    if(angle*r === 90 && side === -1){
 		cardList[cardNum].classList.toggle('card-back')
 		cardMiddleList[cardNum].classList.toggle('hidden')
 		cardBottomList[cardNum].classList.toggle('hidden')
 	}
 	if(angle*r > 180 || angle*r < 0) {
-		animationOngoing = false
+    animationOngoing = false
 		return
 	}
-
-    x = Math.cos(angle) * r;
-    y = angle * r;
+  
+  x = Math.cos(angle) * r;
+  y = angle * r;
 	
-    cardList[cardNum].style.transform = `rotateX(${0}deg) rotateY(${y}deg)`;
+  cardList[cardNum].style.transform = `rotateX(${0}deg) rotateY(${y}deg)`;
+  
+  requestAnimationFrame(()=> loop(cardNum));
 
-    requestAnimationFrame(()=> loop(cardNum));
-	
 }
 
 function trigger(event) {
-  console.log(event.target.offsetParent);
-  const cardNum = event.target.offsetParent.id.split("-")[1]
-	if(!animationOngoing){
+  let cardNum = null
+  if([1,2,3].includes(+event.target.offsetParent.id.split("-")[1])){
+    cardNum = +event.target.offsetParent.id.split("-")[1]
+  }
+	if(!animationOngoing && cardNum !== null){
 		animationOngoing = true	
 		side = side*-1
 		loop(cardNum-1)
