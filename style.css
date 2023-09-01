@@ -177,6 +177,7 @@
 	background-image: url('./public/card_front_nobg.png');
 	background-repeat: no-repeat;
 	background-size: cover;
+  z-index: 1000;
 }
 
 .card-back {

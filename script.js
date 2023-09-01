@@ -123,6 +123,7 @@ function loop(cardNum) {
 }
 
 function trigger(event) {
+  console.log(event.target.offsetParent);
   const cardNum = event.target.offsetParent.id.split("-")[1]
 	if(!animationOngoing){
 		animationOngoing = true	
