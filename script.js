@@ -28,7 +28,7 @@ const leftText = ["¡Felicidades, Nicol! Como ya te he comentado algunas veces, 
 
 "Cuando nos conocimos, pensé que eras muy mona, incluso demasiado, y que igual no salía bien. Luego dijimos de quedar y, para variar, llegué tarde (otro punto que me hizo pensar que no saldría bien 😅), pero todo fluyó super bien, y cuando me despedí de ti y cogí el tren para volver a casa, me encontré pensando dónde podríamos quedar el próximo día.",
 
-"Al día siguiente, quedamos para ir a algún lugar, esta vez en Sancu para que no llegara tarde (casi llego antes que tú, imagínate). Otra tarde que se me pasó volando, tanto que te dije de llevarte en coche para estar un rato más juntos 😅.",
+"Al día siguiente, quedamos para ir al Somewhere, esta vez en Sancu para que no llegara tarde (casi llego antes que tú, imagínate). Otra tarde que se me pasó volando, tanto que te dije de llevarte en coche para estar un rato más juntos 😅.",
 
 "Un par de semanas después (por lo visto, es a lo que la gente normal llama quedar MUY seguido 😜), tocó coreano y también me lo pasé muy bien, el tiempo volaba casi tan rápido como el dinero (ese coreano me ha marcado para toda la vida, aunque el hecho de que cambiaras tus planes por mí me hizo mucha ilusión 🥰). Después de perdernos por Sarrià, llegué a casa y seguía pensando en quedar contigo otra vez, así que te pregunté por tu ocupada agenda y tachán, hasta dentro de 2 semanas nada 😓.",
 
@@ -44,24 +44,9 @@ const leftText = ["¡Felicidades, Nicol! Como ya te he comentado algunas veces, 
 
 "No te negaré que a medida que iba leyendo, me subía un escalofrío por la espalda (a mí también me da un poco de vergu que me digas lo que sientes 😅, aunque me encanta 🥰), y cuando llegué al final, no podía aguantar las ganas de decirte lo mucho que quería estar contigo desde hacía tiempo.",
 
-"Desde entonces, todo han sido alegrías, y cada vez me doy cuenta de lo mucho que me aportas y lo bien que estoy contigo, así que espero poder celebrar muchos cumpleaños más contigo. ¡Te quiero, Nicol! 😘"]; //INSTAGRAM abril-mayo
-
-const rightText = "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+"Desde entonces, todo han sido alegrías, y cada vez me doy cuenta de lo mucho que me aportas y lo bien que estoy contigo, así que espero poder celebrar muchos cumpleaños más contigo. ¡Te quiero mucho, Nicol! 😘"]; //INSTAGRAM abril-mayo
 
 const context = new AudioContext();
-
-const playSound = () => {
-/*     const oscillator = context.createOscillator();
-    const gainNode = context.createGain();
-  
-    oscillator.type = 'sine'; // Set oscillator type to square wave
-    oscillator.frequency.setValueAtTime(800, context.currentTime); // Set frequency for the desired "blip" sound
-    oscillator.connect(gainNode);
-    gainNode.connect(context.destination);
-  
-    oscillator.start();
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.2); // Fade out the sound quickly */
-  };
 
 const animateText = (textElement, text) => {
   if(textAnimationActive){return}
@@ -75,7 +60,6 @@ const animateText = (textElement, text) => {
     if (currentCharIndex < initialText.length) {
       textElement.innerHTML += initialText.charAt(currentCharIndex);
       currentCharIndex++;
-      playSound(); // Play the sound effect for each letter
       setTimeout(type, 50); // Adjust the delay between each letter appearance
     }else{textAnimationActive = false}
   };
