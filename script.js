@@ -1,9 +1,19 @@
 // Set landscape
-
+let passcode = false
 if (window.orientation === 0 || window.orientation === 180) {
   // Portrait mode
   // Show a message or UI element asking the user to switch to landscape mode
-  alert("Pon el movil en horizontal para verlo correctamente 😘");
+  alert("Pon el movil en horizontal para verlo bien 😘");
+}
+
+let input = prompt("Como me llamas cariñosamente?")
+
+if(input.toLowerCase() === "osi"){
+  passcode = true
+}
+
+if(passcode === false){
+  document.querySelector("body").innerHTML = ""
 }
 
 

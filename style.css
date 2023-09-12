@@ -19,8 +19,8 @@
   border: rgba(255, 0, 0, 0.274) solid 3px;
   border-radius: 50%;
   position: absolute;
-  top: 13%;
-  left: 35%;
+  top: 13.6%;
+  left: 33.6%;
   transform: translate(-50%, -50%);
   animation: beat 3s infinite linear;
   background: radial-gradient(circle at center, rgba(255, 0, 0, 0.274), transparent);
