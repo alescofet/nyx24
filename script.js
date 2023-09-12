@@ -1,11 +1,7 @@
-// Set landscape
 let passcode = false
 if (window.orientation === 0 || window.orientation === 180) {
-  // Portrait mode
-  // Show a message or UI element asking the user to switch to landscape mode
   alert("Pon el movil en horizontal para verlo bien 😘");
 }
-
 
 window.addEventListener('load', function() {
   var preloader = document.getElementById('preloader');
@@ -100,6 +96,9 @@ const animateText = (textElement, text) => {
 
 const leftActive = () => {
   if(!textAnimationActive){
+    if(index === 10){
+      return "cards" //WIP mostrar cartas con el regalo
+    }
     if(!initial && index < leftText.length-1){
       dialogScene.classList.remove(backgroundArray[index])
       index++
