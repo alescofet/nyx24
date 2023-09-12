@@ -19,14 +19,14 @@
   border: rgba(255, 0, 0, 0.274) solid 3px;
   border-radius: 50%;
   position: absolute;
-  top: 13.6%;
-  left: 33.6%;
+  top: 13.4vh;
+  left: 33.5vw;
   transform: translate(-50%, -50%);
   animation: beat 3s infinite linear;
   background: radial-gradient(circle at center, rgba(255, 0, 0, 0.274), transparent);
   z-index: 2;
-  width: 300px;
-  height: 300px;
+  width: 33vw;
+  height: 33vw;
 }
 @keyframes beat {
   0% {
