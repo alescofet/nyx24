@@ -35,7 +35,7 @@ const leftText = ["¡Felicidades Nicol! Como ya te he comentado algunas veces, n
 "Aunque despues me dijiste que hasta 3 semanas despues no había hueco en tu apretada agenda... Así que me armé de paciencia para aguantar y fuimos hablando por whats y por insta, hasta que un dia que ibas al alienzone y en teoria no podías pasarte antes cambiaste de opinion y pudimos estar un rato juntos, fue el primer dia que quedabamos y que podía darte mimos sin miedo y a día de hoy aun no sé cuanto rato estuvimos, solo sé que se me pasó como si solo hubieran sido segundos...",
 "A partir de ese día empezamos a quedar más seguido, ya fuera para descubrir nuevos restaurantes o para vernos series o jugar al ordenador, y cada día que pasaba me iba dando cuenta de que pese a que dijimos que estabamos de rollo, no tenía ganas de quedar con nadie que no fueras tú",
 "Y así fueron pasando las semanas hasta aquel dia en el jardín de casa de mis abuelos, cuándo con esa carita que pones cuando algo te da vergüenza me dijiste que tenias un texto para mí, pero que tenía que leerlo por dentro y sin mirarte, y te pusiste detras mío abrazandome y escondiendo tu cara en mi espalda",
-"A medida que iba leyendo me subían escalofríos por la espalda(A mi también me da un poco de vergu que me digas lo que sientes😅, aunque me encanta🥰), y cuando llegué al final no podía aguantar las ganas de decirte lo mucho que quería estar contigo desde hacía tiempo",
+"No te negaré que a medida que iba leyendo me subía escalofrío por la espalda(A mi también me da un poco de vergu que me digas lo que sientes😅, aunque me encanta🥰), y cuando llegué al final no podía aguantar las ganas de decirte lo mucho que quería estar contigo desde hacía tiempo",
 "Desde entonces todo han sido alegrías y cada vez me doy cuenta de lo mucho que me aportas y lo bien que estoy contigo, así que espero poder celebrar muchos cumples más contigo. Te quiero Nicol!!😘"]; //INSTAGRAM abril-mayo
 
 const rightText = "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
@@ -43,16 +43,16 @@ const rightText = "Sed do eiusmod tempor incididunt ut labore et dolore magna al
 const context = new AudioContext();
 
 const playSound = () => {
-    const oscillator = context.createOscillator();
+/*     const oscillator = context.createOscillator();
     const gainNode = context.createGain();
   
-    oscillator.type = 'square'; // Set oscillator type to square wave
+    oscillator.type = 'sine'; // Set oscillator type to square wave
     oscillator.frequency.setValueAtTime(800, context.currentTime); // Set frequency for the desired "blip" sound
     oscillator.connect(gainNode);
     gainNode.connect(context.destination);
   
     oscillator.start();
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.1); // Fade out the sound quickly
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.2); // Fade out the sound quickly */
   };
 
 const animateText = (textElement, text) => {
@@ -68,7 +68,7 @@ const animateText = (textElement, text) => {
       textElement.innerHTML += initialText.charAt(currentCharIndex);
       currentCharIndex++;
       playSound(); // Play the sound effect for each letter
-      setTimeout(type, 0.01); // Adjust the delay between each letter appearance
+      setTimeout(type, 50); // Adjust the delay between each letter appearance
     }else{textAnimationActive = false}
   };
 
@@ -176,4 +176,14 @@ function trigger(event) {
 cardList.forEach((card)=>{
   card.addEventListener("click",trigger)
 })
+
+window.addEventListener('load', function() {
+  var preloader = document.getElementById('preloader');
+  var images = preloader.getElementsByTagName('img');
+
+  for (var i = 0; i < images.length; i++) {
+    var image = new Image();
+    image.src = images[i].src;
+  }
+});
 
