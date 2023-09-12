@@ -6,6 +6,17 @@ if (window.orientation === 0 || window.orientation === 180) {
   alert("Pon el movil en horizontal para verlo bien 😘");
 }
 
+
+window.addEventListener('load', function() {
+  var preloader = document.getElementById('preloader');
+  var images = preloader.getElementsByTagName('img');
+
+  for (var i = 0; i < images.length; i++) {
+    var image = new Image();
+    image.src = images[i].src;
+  }
+});
+
 let input = prompt("Como me llamas cariñosamente?")
 
 if(input.toLowerCase() === "osi"){
@@ -174,15 +185,6 @@ cardList.forEach((card)=>{
   card.addEventListener("click",trigger)
 })
 
-window.addEventListener('load', function() {
-  var preloader = document.getElementById('preloader');
-  var images = preloader.getElementsByTagName('img');
-
-  for (var i = 0; i < images.length; i++) {
-    var image = new Image();
-    image.src = images[i].src;
-  }
-});
 
 
 
