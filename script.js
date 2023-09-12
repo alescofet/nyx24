@@ -1,3 +1,12 @@
+// Set landscape
+
+if (window.orientation === 0 || window.orientation === 180) {
+  // Portrait mode
+  // Show a message or UI element asking the user to switch to landscape mode
+  alert("Pon el movil en horizontal para verlo correctamente 😘");
+}
+
+
 // Get the dialog boxes
 const leftDialogBox = document.querySelector('.left-dialog-box');
 const dialogScene = document.querySelector('.dialog-scene');
@@ -164,4 +173,6 @@ window.addEventListener('load', function() {
     image.src = images[i].src;
   }
 });
+
+
 
