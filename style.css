@@ -4,7 +4,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 /* Set background image for the dialog scene */
 .dialog-scene {
   width: 100%;
@@ -16,7 +15,6 @@
   box-sizing: border-box;
   z-index: 1;
 }
-
 .circle {
   border: rgba(255, 0, 0, 0.274) solid 3px;
   border-radius: 50%;
@@ -30,8 +28,6 @@
   width: 300px;
   height: 300px;
 }
-
-
 @keyframes beat {
   0% {
       transform: scale(1);
@@ -43,127 +39,83 @@
       transform: scale(1);
   }
 }
-
 /* Style for the dialog boxes */
 .dialog-box {
-  width: 35%;
+  max-width: 60%;
   background-color: rgba(0, 0, 0, 0.8);
   border: 2px solid #fff;
   border-radius: 10px;
   padding: 10px;
-  margin-bottom: 20px;
+  margin: auto;
   display: flex;
   align-items: flex-start;
+  justify-content: flex-start;
   transition: all 0.3s ease;
-  overflow: hidden; /* Add this line to contain the text */
+  overflow: hidden;
   z-index: 3;
 }
 
 .black-background{
   background-color: black;
 }
-
 .coffee-background{
   background-image: url('./public/coffee.jpg');
   background-size: cover;
   background-position: center;
 }
-
 .terrace-background{
   background-image: url('./public/terrace.jpg');
   background-size: cover;
   background-position: center;
 }
-
 .corean-background{
   background-image: url('./public/corean.jpg');
   background-size: cover;
   background-position: center;
 }
-
 .rooftop-background{
   background-image: url('./public/rooftop.jpg');
   background-size: cover;
   background-position: center;
 }
-
 .restroom-background{
   background-image: url('./public/restroom.jpg');
   background-size: cover;
   background-position: center;
 }
-
 .dormitory-background{
   background-image: url('./public/dormitory.jpg');
   background-size: cover;
   background-position: center;
 }
-
 .garden-background{
   background-image: url('./public/garden.jpg');
   background-size: cover;
   background-position: center;
 }
-
 /* Style for the left dialog box */
 .left-dialog-box {
   justify-content: flex-start;
   align-self: flex-end; /* Change this line to align the left dialog box to the top */
 }
-
-/* Style for the right dialog box */
-.right-dialog-box {
-  justify-content: flex-start;
-  align-self: flex-end;
-}
-
-/* Style for the avatars */
-.avatar {
-  min-width: 150px;
-  min-height: 150px;
-  background-color: #fff;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-/* Style for the left avatar */
-.left-avatar {
-  background-image: url('./public/alex.png');
-  background-size: cover;
-  background-position: center;
-}
-
-/* Style for the right avatar */
-.right-avatar {
-  background-image: url('./public/nicky.png');
-  background-size: cover;
-  background-position: center;
-}
-
 .dialog-content {
-  max-width: 90%;
+  max-width: 100%;
 }
-
-/* Style for the name and text in the dialog boxes */
-.name {
-  color: #fff;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
+/* Style for the text in the dialog boxes */
 .text-container {
   max-height: 200px; /* Add this line to limit the height of the text container */
   max-width: 100%; /* Add this line to limit the width of the text container */
 }
-
 .text {
-  flex-grow: 1; /* Add this line to allow the text container to grow vertically */
+  flex-grow: 1;
   max-width: 100%;
   color: #fff;
   font-size: 16px;
-  word-wrap: break-word; /* Add this line to allow long words to wrap */
+  word-wrap: break-word;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
-
 /* Animation for the shrinking and fading of the non-speaking dialog box */
 @keyframes shrink {
   0% {
@@ -175,24 +127,16 @@
     opacity: 0.5;
   }
 }
-
 /* Modify the style for the dialog boxes during shrinking animation */
 .dialog-box.shrink {
   animation: shrink 0.5s forwards;
   width: 20%; /* Adjust the width to desired size */
   padding: 0; /* Remove padding to hide the text */
 }
-
 /* Hide the text elements during shrinking animation */
 .dialog-box.shrink .text {
   display: none;
 }
-
-.dialog-box.shrink .avatar {
-  min-width: 50px;
-  min-height: 50px;
-}
-
 /* Animation for the growing of the speaking dialog box */
 @keyframes grow {
   0% {
@@ -204,32 +148,26 @@
     opacity: 1;
   }
 }
-
 .dialog-box.grow {
   animation: grow 0.5s forwards;
 }
-
 .dialog-box.grow .text {
   word-break: normal;
 }
-
 /* CARD STYLES */
-
 .card-body {
-	/* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
-	font-family: 'Slabo 27px', serif;
-	font-size: 120%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	perspective: 2500px;
+  /* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
+  font-family: 'Slabo 27px', serif;
+  font-size: 120%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  perspective: 2500px;
 }
-
 .card-body > img {
-	max-width: 100%;
+  max-width: 100%;
 }
-
 .card-container{
   display: flex;
   flex-wrap: nowrap;
@@ -237,73 +175,64 @@
   justify-content: space-around;
   align-content: center;
 }
-
 .card {
-	border-radius: 20px;
-	/* box-shadow: 0 10px 40px 15px rgba(0, 0, 0, 0.15); */
-	overflow: hidden;
-	position: relative;
-	animation: rotation 3s linear infinite;
-	width: 170px;
-	height: 250px;
-	background-image: url('./public/card_front_nobg.png');
-	background-repeat: no-repeat;
-	background-size: cover;
+  border-radius: 20px;
+  /* box-shadow: 0 10px 40px 15px rgba(0, 0, 0, 0.15); */
+  overflow: hidden;
+  position: relative;
+  animation: rotation 3s linear infinite;
+  width: 170px;
+  height: 250px;
+  background-image: url('./public/card_front_nobg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   z-index: 1000;
 }
-
 .card-back {
-	background-image: url('./public/card_back_nobg.png');
-	background-repeat: no-repeat;
-	background-size: cover;
-	z-index: 10000;
-  }
-
+  background-image: url('./public/card_back_nobg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 10000;
+}
 .card-top {
-	height: 200px;
-	overflow: hidden;
+  height: 200px;
+  overflow: hidden;
 }
-
 .hidden{
-	display: none!important;
+  display: none!important;
 }
-
 .card-middle {
-	background-image: url("./public/interrogante.png");
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-position: center;
-	border-radius: 50%;
-	position: absolute;
-	left: 50%;
-	top: 40%;
-	transform: translate(-50%, -50%);
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-	width: 130px;
-	height: 130px;
+  background-image: url("./public/interrogante.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 130px;
+  height: 130px;
 }
-
 .card-bottom {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 250px;
 }
-
 .card-bottom h3 {
-	color: #777;
-	margin: 30px 0 0;
-	text-transform: uppercase;
-	letter-spacing: .5px;
+  color: #777;
+  margin: 30px 0 0;
+  text-transform: uppercase;
+  letter-spacing: .5px;
 }
-
 .card-bottom p {
-	color: #777;
-	margin: 15px 0 0;
-	letter-spacing: .5px;
+  color: #777;
+  margin: 15px 0 0;
+  letter-spacing: .5px;
 }
-
 #preloader {
   display: none;
 }

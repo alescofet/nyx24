@@ -1,6 +1,5 @@
 // Get the dialog boxes
 const leftDialogBox = document.querySelector('.left-dialog-box');
-const rightDialogBox = document.querySelector('.right-dialog-box');
 const dialogScene = document.querySelector('.dialog-scene');
 const ring = document.querySelector('.circle');
 let initial = true
@@ -24,7 +23,6 @@ let backgroundArray = [
 
 // Get the text elements
 const leftTextSelector = leftDialogBox.querySelector('.text');
-const rightTextSelector = rightDialogBox.querySelector('.text');
 
 const leftText = ["¡Felicidades, Nicol! Como ya te he comentado algunas veces, no suelo escribir textos muy largos, pero como es tu cumple y sé que te gustará recibirlo, aquí lo tienes.",
 
@@ -85,17 +83,6 @@ const animateText = (textElement, text) => {
   type();
 };
 
-const rightActive = () => {
-    if(leftTextSelector.innerHTML.length != leftText[index].length || (active !== 'left' && !initial)){
-        return
-    }
-    active = "right"
-    rightDialogBox.classList.add('grow');
-    leftDialogBox.classList.remove('grow');
-    rightDialogBox.classList.remove('shrink');
-    leftDialogBox.classList.add('shrink');
-    animateText(rightTextSelector, rightText)
-}
 
 const leftActive = () => {
   if(!textAnimationActive){
@@ -112,16 +99,13 @@ const leftActive = () => {
     initial = false
     active = "left"
     leftDialogBox.classList.add('grow');
-    rightDialogBox.classList.remove('grow');
     leftDialogBox.classList.remove('shrink');
-    rightDialogBox.classList.add('shrink');
     animateText(leftTextSelector, leftText[index])
   }
 }
 
 // Add text appearance animation to the text elements
 leftTextSelector.classList.add('typewriter');
-rightTextSelector.classList.add('typewriter');
 leftActive()
 
 // Show card

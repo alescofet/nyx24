@@ -16,13 +16,11 @@
     <img src="./public/dormitory.jpg">
     <img src="./public/garden.jpg">
   </div>
-
   <div class="dialog-container">
     <div class="circle"></div>
     <div  class="dialog-scene black-background">
-      <button id="card-button">CARD</button>
+      <button id="card-button" class="hidden">CARD</button>
       <div class="card-container hidden">
-        
           <div id="card-1" class="card">
             <div class="card-top"></div>
             <div class="card-middle"></div>
@@ -32,8 +30,6 @@
             </div>
             <div class="card-back"></div>
           </div>
-        
-       
           <div id="card-2" class="card">
             <div class="card-top"></div>
             <div class="card-middle"></div>
@@ -43,8 +39,6 @@
             </div>
             <div class="card-back"></div>
           </div>
-        
-        
           <div id="card-3" class="card">
             <div class="card-top"></div>
             <div class="card-middle"></div>
@@ -54,21 +48,9 @@
             </div>
             <div class="card-back"></div>
           </div>
-        
       </div>
       <div class="dialog-box left-dialog-box" onclick="leftActive()">
-        <div class="avatar left-avatar"></div>
         <div class="dialog-content">
-          <div class="name">Person 1</div>
-          <div class="text-container">
-            <div class="text"></div>
-          </div>
-        </div>
-      </div>
-      <div class="dialog-box right-dialog-box" onclick="rightActive()">
-        <div class="avatar right-avatar"></div>
-        <div class="dialog-content">
-          <div class="name">Person 2</div>
           <div class="text-container">
             <div class="text"></div>
           </div>
@@ -76,7 +58,6 @@
       </div>
     </div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
