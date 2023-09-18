@@ -1,7 +1,21 @@
 let passcode = false
-if (window.orientation === 0 || window.orientation === 180) {
-  alert("Pon el movil en horizontal para verlo bien 😘");
+let horizontalScreen = false
+
+const checkOrientation = (orientation) => {
+  if (orientation === 0 || orientation === 180) {
+    horizontalScreen = false
+  } else {
+    horizontalScreen = true
+  }
+  if (!horizontalScreen) {
+    alert("Pon el movil en horizontal para verlo bien 😘")
+    setTimeout(() => {
+      checkOrientation(window.orientation)
+    }, 2000);
+  }
 }
+
+checkOrientation(window.orientation)
 
 window.addEventListener('load', function() {
   var preloader = document.getElementById('preloader');
@@ -43,7 +57,8 @@ let backgroundArray = [
   "black-background",
   "garden-background",
   "garden-background",
-  "black-background"
+  "black-background",
+  "black-background",
 ]
 // Add animation classes to the dialog boxes
 
@@ -70,7 +85,10 @@ const leftText = ["¡Felicidades, Nicol! Como ya te he comentado algunas veces, 
 
 "No te negaré que a medida que iba leyendo, me subía un escalofrío por la espalda (a mí también me da un poco de vergu que me digas lo que sientes 😅, aunque me encanta 🥰), y cuando llegué al final, no podía aguantar las ganas de decirte lo mucho que quería estar contigo desde hacía tiempo.",
 
-"Desde entonces, todo han sido alegrías, y cada vez me doy cuenta de lo mucho que me aportas y lo bien que estoy contigo, así que espero poder celebrar muchos cumpleaños más contigo. ¡Te quiero mucho, Nicol! 😘"]; //INSTAGRAM abril-mayo
+"Desde entonces, todo han sido alegrías, y cada vez me doy cuenta de lo mucho que me aportas y lo bien que estoy contigo, así que espero poder celebrar muchos cumpleaños más contigo. ¡Te quiero mucho, Nicol! 😘",
+
+"Aunque espero que te haya gustado, este no es el único regalo que tengo para tí, dale la vuelta a la siguiente carta y tendrás tu otro regalito 😜"
+]; //INSTAGRAM abril-mayo
 
 const context = new AudioContext();
 
@@ -93,16 +111,15 @@ const animateText = (textElement, text) => {
   type();
 };
 
-
 const leftActive = () => {
   if(!textAnimationActive){
-    if(index === 10){
-      return "cards" //WIP mostrar cartas con el regalo
+    if(index === 11){
+      showCard()
     }
     if(!initial && index < leftText.length-1){
       dialogScene.classList.remove(backgroundArray[index])
       index++
-      if(index === 0 || index === 7 || index === 10){
+      if(index === 0 || index === 7 || index === 10 || index === 11){
         ring.classList.remove("hidden")
       }else{
         ring.classList.add("hidden")
@@ -123,24 +140,27 @@ leftActive()
 
 // Show card
 
-const cardContainer = document.querySelector('.card-container')
-const showCard = ()=>{
+var cardContainer = document.querySelector('.card-container')
+var showCard = ()=>{
     cardContainer.classList.toggle('hidden')
+    leftDialogBox.classList.toggle('hidden')
+
 }
-let cardButton = document.getElementById("card-button");
+var cardButton = document.getElementById("card-button");
 cardButton.addEventListener("click",showCard)
 
 //Card Scripts
 
-const cardList = document.querySelectorAll('.card');
-const cardMiddleList = document.querySelectorAll('.card-middle');
-const cardBottomList = document.querySelectorAll('.card-bottom');
-const r = 10;
+var cardList = document.querySelectorAll('.card');
+
+var cardMiddleList = document.querySelectorAll('.card-middle');
+var cardBottomList = document.querySelectorAll('.card-bottom');
+var r = 10;
 
 
-let angle = 0, x, y;
-let side = -1
-let animationOngoing = false
+var angle = 0, x, y;
+var side = -1
+var animationOngoing = false
 
 function loop(cardNum) {
     angle+= 0.2*side;
@@ -181,6 +201,8 @@ function trigger(event) {
 }
 
 cardList.forEach((card)=>{
+  console.log("cardTouched");
+  
   card.addEventListener("click",trigger)
 })
 

@@ -169,49 +169,44 @@
   max-width: 100%;
 }
 .card-container{
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: space-around;
-  align-content: center;
+	display: grid;
+	place-items: center;
 }
 .card {
-  border-radius: 20px;
-  /* box-shadow: 0 10px 40px 15px rgba(0, 0, 0, 0.15); */
+  border-radius: 30%;
   overflow: hidden;
-  position: relative;
+  position: absolute;
+  top: 15.3vh;
+  left: 32.7vw;
   animation: rotation 3s linear infinite;
-  width: 170px;
+  width: 250px;
   height: 250px;
-  background-image: url('./public/card_front_nobg.png');
+  background-image: url('./public/cat_card_front_nobg.png');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   z-index: 1000;
 }
 .card-back {
-  background-image: url('./public/card_back_nobg.png');
+
+  background-image: url('./public/cat_card_back_nobg.png');
   background-repeat: no-repeat;
   background-size: cover;
-  z-index: 10000;
-}
-.card-top {
-  height: 200px;
-  overflow: hidden;
 }
 .hidden{
   display: none!important;
 }
+
+
+.card-top {
+  height: 200px;
+  overflow: hidden;
+}
 .card-middle {
-  background-image: url("./public/interrogante.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
   border-radius: 50%;
   position: absolute;
   left: 50%;
   top: 40%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   width: 130px;
   height: 130px;
 }
@@ -222,17 +217,7 @@
   flex-direction: column;
   height: 250px;
 }
-.card-bottom h3 {
-  color: #777;
-  margin: 30px 0 0;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-}
-.card-bottom p {
-  color: #777;
-  margin: 15px 0 0;
-  letter-spacing: .5px;
-}
+
 #preloader {
   display: none;
 }
