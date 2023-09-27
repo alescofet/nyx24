@@ -169,8 +169,10 @@
   max-width: 100%;
 }
 .card-container{
-	display: grid;
+  display: grid;
 	place-items: center;
+/*   grid-template-columns: repeat(2, 1fr);
+  justify-content: center; */
 }
 .card {
   border-radius: 30%;

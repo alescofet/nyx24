@@ -1,7 +1,78 @@
+//Initialize Variables
+
+//General Variables
 let passcode = false
 let horizontalScreen = false
+const localStorage = window.localStorage
+const alreadySeen = localStorage.getItem("alreadySeen")
 
-const checkOrientation = (orientation) => {
+//Card Variables
+var cardContainer = document.querySelector('.card-container')
+var cardButton = document.getElementById("card-button");
+var cardList = document.querySelectorAll('.card');
+var cardMiddleList = document.querySelectorAll('.card-middle');
+var cardBottomList = document.querySelectorAll('.card-bottom');
+var r = 10;
+var angle = 0, x, y;
+var side = -1
+var animationOngoing = false
+
+//Dialog Variables
+const leftDialogBox = document.querySelector('.left-dialog-box');
+const dialogScene = document.querySelector('.dialog-scene');
+const ring = document.querySelector('.circle');
+let initial = true
+let active = 'left'
+let index = 0
+let textAnimationActive = false
+let backgroundArray = [
+  "black-background",
+  "coffee-background",
+  "terrace-background",
+  "corean-background",
+  "rooftop-background",
+  "restroom-background",
+  "dormitory-background",
+  "black-background",
+  "garden-background",
+  "garden-background",
+  "black-background",
+  "black-background",
+  "black-background",
+]
+
+const leftTextSelector = leftDialogBox.querySelector('.text');
+
+const leftText = [
+  "¡Felicidades, Nicol! Como ya te he comentado algunas veces, no suelo escribir textos muy largos, pero como es tu cumple y sé que te gustará recibirlo, aquí lo tienes.",
+
+"Cuando nos conocimos, pensé que eras muy mona, incluso demasiado, y que igual no salía bien. Luego dijimos de quedar y, para variar, llegué tarde (otro punto que me hizo pensar que no saldría bien 😅), pero todo fluyó super bien, y cuando me despedí de ti y cogí el tren para volver a casa, me encontré pensando dónde podríamos quedar el próximo día.",
+
+"Al día siguiente, quedamos para ir al Somewhere, esta vez en Sancu para que no llegara tarde (casi llego antes que tú, imagínate). Otra tarde que se me pasó volando, tanto que te dije de llevarte en coche para estar juntos un rato más 😅.",
+
+"Un par de semanas después (por lo visto, es a lo que la gente normal llama quedar MUY seguido 😜), tocó coreano y también me lo pasé muy bien, el tiempo volaba casi tan rápido como el dinero (ese coreano me ha marcado para toda la vida, aunque el hecho de que cambiaras tus planes por mí me hizo mucha ilusión 🥰). Después de perdernos por Sarrià, llegué a casa y seguía pensando en quedar contigo otra vez, así que te pregunté por tu ocupada agenda y tachán, hasta dentro de 2 semanas nada 😓.",
+
+"Pero de repente me llegó un mensaje tuyo un viernes por la mañana diciéndome si quería quedar para comer. Esta vez quedamos en mi casa y comimos en la terraza, al solete. Otra tarde más que se me pasó volando, y al ir a despedirme para llevarte a casa, hubo un momento en el que estábamos muy cerca mirándonos a los ojos, y pensé que nos íbamos a besar, pero nos separamos y no pasó nada. (Aunque esa misma tarde me llegó el primer \"textaco\", así que valió la pena 😜).",
+
+"Después te fuiste a Burdeos y llegó Semana Santa, así que adivina qué... 3 semanas más sin verte 😓. Aunque la espera valió la pena, tocó tarde de chill en casa, jugando a la Switch y viendo un par de pelis, y por fin al acabar nos besamos (después de estar mandándote señales que tú no viste durante toda la tarde... 😜).",
+
+"Aunque después me dijiste que hasta 3 semanas después no había hueco en tu apretada agenda... Así que me armé de paciencia para aguantar, y fuimos hablando por Whats e Insta, hasta que un día que ibas al Alienzone y en teoría no podías pasarte antes, cambiaste de opinión y pudimos estar un rato juntos. Fue el primer día que quedábamos y que podía darte mimos sin miedo, y a día de hoy aún no sé cuánto rato estuvimos, solo sé que se me pasó como si solo hubieran sido segundos...",
+
+"A partir de ese día, empezamos a quedar más seguido, ya fuera para descubrir nuevos restaurantes o para ver series o jugar al ordenador, y cada día que pasaba me iba dando cuenta de que, pese a que dijimos que estábamos de rollo, no tenía ganas de quedar con nadie que no fueras tú.",
+
+"Y así fueron pasando las semanas hasta aquel día en el jardín de casa de mis abuelos, cuando con esa carita que pones cuando algo te da vergüenza, me dijiste que tenías un texto para mí, pero que tenía que leerlo por dentro y sin mirarte, y te pusiste detrás de mí abrazándome y escondiendo tu cara en mi espalda.",
+
+"No te negaré que a medida que iba leyendo, me subía un escalofrío por la espalda (a mí también me da un poco de vergu que me digas lo que sientes 😅, aunque me encanta 🥰), y cuando llegué al final, no podía aguantar las ganas de decirte lo mucho que quería estar contigo desde hacía tiempo.",
+
+"Desde entonces, todo han sido alegrías, y cada vez me doy cuenta de lo mucho que me aportas y lo bien que estoy contigo, así que espero poder celebrar muchos cumpleaños más contigo. ¡Te quiero mucho, Nicol! 😘",
+
+"Aunque espero que te haya gustado, este no es el único regalo que tengo para tí, dale la vuelta a la siguiente carta y tendrás tu otro regalito 😜"
+]; //INSTAGRAM abril-mayo
+/* "¿No eres demasiado curiosa tu?🤔 Aquí tienes el regalito de esta semana, igual la semana que viene tienes otro 😜" */
+
+const context = new AudioContext();
+
+function checkOrientation(orientation){
   if (orientation === 0 || orientation === 180) {
     horizontalScreen = false
   } else {
@@ -27,6 +98,7 @@ window.addEventListener('load', function() {
   }
 });
 
+
 let input = prompt("Como me llamas cariñosamente?")
 
 if(input.toLowerCase() === "osi"){
@@ -38,61 +110,20 @@ if(passcode === false){
 }
 
 
-// Get the dialog boxes
-const leftDialogBox = document.querySelector('.left-dialog-box');
-const dialogScene = document.querySelector('.dialog-scene');
-const ring = document.querySelector('.circle');
-let initial = true
-let active = 'left'
-let index = 0
-let textAnimationActive = false
-let backgroundArray = [
-  "black-background",
-  "coffee-background",
-  "terrace-background",
-  "corean-background",
-  "rooftop-background",
-  "restroom-background",
-  "dormitory-background",
-  "black-background",
-  "garden-background",
-  "garden-background",
-  "black-background",
-  "black-background",
-]
-// Add animation classes to the dialog boxes
+// Check if already seen
 
-// Get the text elements
-const leftTextSelector = leftDialogBox.querySelector('.text');
+if(alreadySeen){
+  const questionReSee = prompt("¿Quieres volver a leer la carta desde el principio?").toLowerCase() === "si"
+  if(questionReSee){
+    index = 0
+  }else {
+    index = 11
+    //index = 12
+  }
+}
 
-const leftText = ["¡Felicidades, Nicol! Como ya te he comentado algunas veces, no suelo escribir textos muy largos, pero como es tu cumple y sé que te gustará recibirlo, aquí lo tienes.",
 
-"Cuando nos conocimos, pensé que eras muy mona, incluso demasiado, y que igual no salía bien. Luego dijimos de quedar y, para variar, llegué tarde (otro punto que me hizo pensar que no saldría bien 😅), pero todo fluyó super bien, y cuando me despedí de ti y cogí el tren para volver a casa, me encontré pensando dónde podríamos quedar el próximo día.",
-
-"Al día siguiente, quedamos para ir al Somewhere, esta vez en Sancu para que no llegara tarde (casi llego antes que tú, imagínate). Otra tarde que se me pasó volando, tanto que te dije de llevarte en coche para estar un rato más juntos 😅.",
-
-"Un par de semanas después (por lo visto, es a lo que la gente normal llama quedar MUY seguido 😜), tocó coreano y también me lo pasé muy bien, el tiempo volaba casi tan rápido como el dinero (ese coreano me ha marcado para toda la vida, aunque el hecho de que cambiaras tus planes por mí me hizo mucha ilusión 🥰). Después de perdernos por Sarrià, llegué a casa y seguía pensando en quedar contigo otra vez, así que te pregunté por tu ocupada agenda y tachán, hasta dentro de 2 semanas nada 😓.",
-
-"Pero de repente me llegó un mensaje tuyo un viernes por la mañana diciéndome si quería quedar para comer. Esta vez quedamos en mi casa y comimos en la terraza, al solete. Otra tarde más que se me pasó volando, y al ir a despedirme para llevarte a casa, hubo un momento en el que estábamos muy cerca mirándonos a los ojos, y pensé que nos íbamos a besar, pero nos separamos y no pasó nada. (Aunque esa misma tarde me llegó el primer \"textaco\", así que valió la pena 😜).",
-
-"Después te fuiste a Burdeos y llegó Semana Santa, así que adivina qué... 3 semanas más sin verte 😓. Aunque la espera valió la pena, tocó tarde de chill en casa, jugando a la Switch y viendo un par de pelis, y por fin al acabar nos besamos (después de estar mandándote señales que tú no viste durante toda la tarde... 😜).",
-
-"Aunque después me dijiste que hasta 3 semanas después no había hueco en tu apretada agenda... Así que me armé de paciencia para aguantar, y fuimos hablando por Whats e Insta, hasta que un día que ibas al Alienzone y en teoría no podías pasarte antes, cambiaste de opinión y pudimos estar un rato juntos. Fue el primer día que quedábamos y que podía darte mimos sin miedo, y a día de hoy aún no sé cuánto rato estuvimos, solo sé que se me pasó como si solo hubieran sido segundos...",
-
-"A partir de ese día, empezamos a quedar más seguido, ya fuera para descubrir nuevos restaurantes o para ver series o jugar al ordenador, y cada día que pasaba me iba dando cuenta de que, pese a que dijimos que estábamos de rollo, no tenía ganas de quedar con nadie que no fueras tú.",
-
-"Y así fueron pasando las semanas hasta aquel día en el jardín de casa de mis abuelos, cuando con esa carita que pones cuando algo te da vergüenza, me dijiste que tenías un texto para mí, pero que tenía que leerlo por dentro y sin mirarte, y te pusiste detrás de mí abrazándome y escondiendo tu cara en mi espalda.",
-
-"No te negaré que a medida que iba leyendo, me subía un escalofrío por la espalda (a mí también me da un poco de vergu que me digas lo que sientes 😅, aunque me encanta 🥰), y cuando llegué al final, no podía aguantar las ganas de decirte lo mucho que quería estar contigo desde hacía tiempo.",
-
-"Desde entonces, todo han sido alegrías, y cada vez me doy cuenta de lo mucho que me aportas y lo bien que estoy contigo, así que espero poder celebrar muchos cumpleaños más contigo. ¡Te quiero mucho, Nicol! 😘",
-
-"Aunque espero que te haya gustado, este no es el único regalo que tengo para tí, dale la vuelta a la siguiente carta y tendrás tu otro regalito 😜"
-]; //INSTAGRAM abril-mayo
-
-const context = new AudioContext();
-
-const animateText = (textElement, text) => {
+function animateText (textElement, text){
   if(textAnimationActive){return}
   console.log(text);
   const initialText = text;
@@ -111,15 +142,19 @@ const animateText = (textElement, text) => {
   type();
 };
 
-const leftActive = () => {
+function leftActive(){
   if(!textAnimationActive){
     if(index === 11){
       showCard()
+      localStorage.setItem("alreadySeen", true)
     }
+    /* if(index === 12){
+      showCard()
+    } */
     if(!initial && index < leftText.length-1){
       dialogScene.classList.remove(backgroundArray[index])
       index++
-      if(index === 0 || index === 7 || index === 10 || index === 11){
+      if(index === 0 || index === 7 || index >= 10){
         ring.classList.remove("hidden")
       }else{
         ring.classList.add("hidden")
@@ -140,27 +175,15 @@ leftActive()
 
 // Show card
 
-var cardContainer = document.querySelector('.card-container')
-var showCard = ()=>{
+
+function showCard() {
     cardContainer.classList.toggle('hidden')
     leftDialogBox.classList.toggle('hidden')
-
 }
-var cardButton = document.getElementById("card-button");
+
 cardButton.addEventListener("click",showCard)
 
 //Card Scripts
-
-var cardList = document.querySelectorAll('.card');
-
-var cardMiddleList = document.querySelectorAll('.card-middle');
-var cardBottomList = document.querySelectorAll('.card-bottom');
-var r = 10;
-
-
-var angle = 0, x, y;
-var side = -1
-var animationOngoing = false
 
 function loop(cardNum) {
     angle+= 0.2*side;
@@ -202,7 +225,6 @@ function trigger(event) {
 
 cardList.forEach((card)=>{
   console.log("cardTouched");
-  
   card.addEventListener("click",trigger)
 })
 
