@@ -8,55 +8,84 @@
   <title>Nyx24</title>
 </head>
 <body>
-  <div id="preloader">
-    <img src="./public/coffee.jpg">
-    <img src="./public/terrace.jpg">
-    <img src="./public/corean.jpg">
-    <img src="./public/rooftop.jpg">
-    <img src="./public/restroom.jpg">
-    <img src="./public/dormitory.jpg">
-    <img src="./public/garden.jpg">
+
+  <div id="yearSelector">
+    <div id="years24" class="preview"><p>24</p></div>
+    <div id="years25" class="preview"><p>25</p></div>
+    <div id="years26" class="preview"><p>26</p></div>
+    <div id="years27" class="preview"><p>27</p></div>
+    <div id="years28" class="preview"><p>28</p></div>
+    <div id="years29" class="preview"><p>29</p></div>
   </div>
-  <div class="dialog-container">
-    <div class="circle"></div>
-    <div  class="dialog-scene black-background">
-      <button id="card-button" class="hidden">CARD</button>
-      <div class="card-container hidden">
-          <div id="card-1" class="card">
-            <div class="card-top"></div>
-            <div class="card-middle"></div>
-            <div class="card-bottom">
+
+  <div id="firstYear" class="hidden">
+    <div id="preloader">
+      <img src="./public/coffee.jpg">
+      <img src="./public/terrace.jpg">
+      <img src="./public/corean.jpg">
+      <img src="./public/rooftop.jpg">
+      <img src="./public/restroom.jpg">
+      <img src="./public/dormitory.jpg">
+      <img src="./public/garden.jpg">
+    </div>
+    <div class="dialog-container">
+      <div class="circle"></div>
+      <div  class="dialog-scene black-background">
+        <button id="card-button" class="hidden">CARD</button>
+        <div class="card-container hidden">
+            <div id="card-1" class="card">
+              <div class="card-top"></div>
+              <div class="card-middle"></div>
+              <div class="card-bottom">
+              </div>
+              <div class="card-back"></div>
             </div>
-            <div class="card-back"></div>
-          </div>
-          <!-- <div id="card-2" class="card">
-            <div class="card-top"></div>
-            <div class="card-middle"></div>
-            <div class="card-bottom">
-              <h3>John Doe</h3>
-              <p>Mountain Climbing</p>
+        </div>
+        <div class="dialog-box left-dialog-box" onclick="leftActive()">
+          <div class="dialog-content">
+            <div class="text-container">
+              <div class="text"></div>
             </div>
-            <div class="card-back"></div>
-          </div> -->
-          <!-- <div id="card-3" class="card">
-            <div class="card-top"></div>
-            <div class="card-middle"></div>
-            <div class="card-bottom">
-              <h3>John Doe</h3>
-              <p>Mountain Climbing</p>
-            </div>
-            <div class="card-back"></div>
-          </div> -->
-      </div>
-      <div class="dialog-box left-dialog-box" onclick="leftActive()">
-        <div class="dialog-content">
-          <div class="text-container">
-            <div class="text"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div id="secondYear" class="hidden">
+    <!-- <div id="preloader">
+      <img src="./public/coffee.jpg">
+      <img src="./public/terrace.jpg">
+      <img src="./public/corean.jpg">
+      <img src="./public/rooftop.jpg">
+      <img src="./public/restroom.jpg">
+      <img src="./public/dormitory.jpg">
+      <img src="./public/garden.jpg">
+    </div> -->
+    <div class="dialog-container">
+      <div class="circle"></div>
+      <div  class="dialog-scene black-background">
+        <button id="card-button" class="hidden">CARD</button>
+        <div class="card-container hidden">
+            <div id="card-1" class="card">
+              <div class="card-top"></div>
+              <div class="card-middle"></div>
+              <div class="card-bottom">
+              </div>
+              <div class="card-back"></div>
+            </div>
+        </div>
+        <div class="dialog-box left-dialog-box" onclick="leftActive()">
+          <div class="dialog-content">
+            <div class="text-container">
+              <div class="text"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

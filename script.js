@@ -136,6 +136,7 @@ function animateText (textElement, text){
       textElement.innerHTML += initialText.charAt(currentCharIndex);
       currentCharIndex++;
       setTimeout(type, 50); // Adjust the delay between each letter appearance
+      /* setTimeout(type, 1); */ // Uncomment for debugging
     }else{textAnimationActive = false}
   };
 
@@ -170,16 +171,23 @@ function leftActive(){
 }
 
 // Add text appearance animation to the text elements
-leftTextSelector.classList.add('typewriter');
-leftActive()
+
 
 // Show card
-
+function showYear24() {
+  console.log("toggle year 24");
+  document.getElementById("yearSelector").classList.toggle("hidden")
+  document.getElementById("firstYear").classList.toggle("hidden")
+  leftTextSelector.classList.add('typewriter');
+  leftActive()
+}
+document.getElementById("years24").addEventListener("click", showYear24)
 
 function showCard() {
     cardContainer.classList.toggle('hidden')
     leftDialogBox.classList.toggle('hidden')
 }
+
 
 cardButton.addEventListener("click",showCard)
 
