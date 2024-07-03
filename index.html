@@ -8,14 +8,38 @@
   <title>Nyx24</title>
 </head>
 <body>
-
-  <div id="yearSelector">
-    <div id="years24" class="preview"><p>24</p></div>
-    <div id="years25" class="preview"><p>25</p></div>
-    <div id="years26" class="preview"><p>26</p></div>
-    <div id="years27" class="preview"><p>27</p></div>
-    <div id="years28" class="preview"><p>28</p></div>
-    <div id="years29" class="preview"><p>29</p></div>
+  <div id="loader" class="hidden"></div>
+  <div id="yearSelector" class="hidden">
+    <div id="years24" class="preview"><div>24</div></div>
+    <div id="years25" class="preview"><div class="locked">
+      <section class="countdown-container">
+  
+        <div class="days-container">
+          <div class="days"></div>
+          <div class="days-label">Dias</div>
+        </div>
+        
+        <div class="hours-container">
+          <div class="hours"></div>
+          <div class="hours-label">Horas</div>
+        </div>
+        
+        <div class="minutes-container">
+          <div class="minutes"></div>
+          <div class="minutes-label">Minutos</div>
+        </div>
+        
+        <div class="seconds-container">
+          <div class="seconds"></div>
+          <div class="seconds-label">Segundos</div>
+        </div>
+        
+      </section>
+    </div></div>
+    <div id="years26" class="preview"><div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div></div>
+    <div id="years27" class="preview"><div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div></div>
+    <div id="years28" class="preview"><div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div></div>
+    <div id="years29" class="preview"><div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div></div>
   </div>
 
   <div id="firstYear" class="hidden">

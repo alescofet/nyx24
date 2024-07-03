@@ -1,5 +1,12 @@
 //Initialize Variables
-
+const checkLoaded = setInterval(() => {
+  if(document.getElementById("yearSelector").classList.contains("hidden")){
+      document.getElementById("loader").classList.remove("hidden")
+  } else {
+    document.getElementById("loader").classList.add("hidden")
+    clearInterval(checkLoaded)
+  }
+}, 1);
 //General Variables
 let passcode = false
 let horizontalScreen = false
@@ -236,6 +243,73 @@ cardList.forEach((card)=>{
   card.addEventListener("click",trigger)
 })
 
+/* 
+<<<<<<<<<<<<<<<<<<<< TIMER JS CODE >>>>>>>>>>>>>>>>>>>>>>>>>
+*/
+
+const countDownClock = (number) => {
+  const d = document;
+  const daysElement = d.querySelector('.days');
+  const hoursElement = d.querySelector('.hours');
+  const minutesElement = d.querySelector('.minutes');
+  const secondsElement = d.querySelector('.seconds');
+  let countdown;
+
+  // Start the timer with the given format
+  timer(number);
+
+  function timer(miliseconds) {
+    const now = Date.now();
+    const then = now + miliseconds;
+
+    countdown = setInterval(() => {
+      const secondsLeft = Math.round((then - Date.now()) / 1000);
+    
+      if (secondsLeft <= 0) {
+        clearInterval(countdown);
+        return;
+      };
+
+      displayTimeLeft(secondsLeft);
+    }, 1000);
+  }
+
+  function displayTimeLeft(secondsLeft) {
+    const second = 1;
+    const minute = second * 60;
+    const hour   = minute * 60;
+    const day    = hour * 24;
+
+    const days = Math.floor(secondsLeft / day);
+    const hours = Math.floor((secondsLeft % day) / hour);
+    const minutes = Math.floor((secondsLeft % hour) / minute);
+    const seconds = secondsLeft % minute < 10 ? `0${secondsLeft % minute}` : secondsLeft % minute;
+
+    daysElement.textContent = days;
+    hoursElement.textContent = hours;
+    minutesElement.textContent = minutes;
+    secondsElement.textContent = seconds;
+    document.getElementById("yearSelector").classList.remove("hidden")
+  }
+
+}
+
+
+let date1 = new Date();
+let date2 = new Date("09/28/2024");
+
+// Calculating the time difference
+// of two dates
+let timeDiff =
+    date2.getTime() - date1.getTime();
+
+// Calculating the no. of days between
+// two dates
+let daysRemaining =
+    Math.round
+        (timeDiff / (1000 * 3600 * 24));
+
+countDownClock(timeDiff);
 
 
 
