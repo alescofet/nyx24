@@ -1,12 +1,21 @@
 //Initialize Variables
 const checkLoaded = setInterval(() => {
-  if(document.getElementById("yearSelector").classList.contains("hidden")){
-      document.getElementById("loader").classList.remove("hidden")
-  } else { 
-      document.getElementById("loader").classList.add("hidden")
+  if(loader.classList.contains("hidden")){
+      yearSelector.classList.remove("hidden")
       clearInterval(checkLoaded)
+  } else { 
+      yearSelector.classList.add("hidden")
   }
 }, 2500);
+
+//Element Queries
+const yearSelector = document.getElementById("yearSelector")
+const loader = document.getElementById("loader")
+const firstYear = document.getElementById("firstYear")
+const years24 = document.getElementById("years24")
+
+
+
 //General Variables
 let passcode = false
 let horizontalScreen = false
@@ -132,7 +141,6 @@ if(alreadySeen){
 
 function animateText (textElement, text){
   if(textAnimationActive){return}
-  console.log(text);
   const initialText = text;
   textElement.innerHTML = '';
   
@@ -183,12 +191,12 @@ function leftActive(){
 // Show card
 function showYear24() {
   console.log("toggle year 24");
-  document.getElementById("yearSelector").classList.toggle("hidden")
-  document.getElementById("firstYear").classList.toggle("hidden")
+  yearSelector.classList.toggle("hidden")
+  firstYear.classList.toggle("hidden")
   leftTextSelector.classList.add('typewriter');
   leftActive()
 }
-document.getElementById("years24").addEventListener("click", showYear24)
+years24.addEventListener("click", showYear24)
 
 function showCard() {
     cardContainer.classList.toggle('hidden')
@@ -289,7 +297,9 @@ const countDownClock = (number) => {
     hoursElement.textContent = hours;
     minutesElement.textContent = minutes;
     secondsElement.textContent = seconds;
-    document.getElementById("yearSelector").classList.remove("hidden")
+    setTimeout(() => {
+      loader.classList.add("hidden")
+    }, 1000);
   }
 
 }
