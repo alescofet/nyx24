@@ -2,11 +2,11 @@
 const checkLoaded = setInterval(() => {
   if(document.getElementById("yearSelector").classList.contains("hidden")){
       document.getElementById("loader").classList.remove("hidden")
-  } else {
-    document.getElementById("loader").classList.add("hidden")
-    clearInterval(checkLoaded)
+  } else { 
+      document.getElementById("loader").classList.add("hidden")
+      clearInterval(checkLoaded)
   }
-}, 1);
+}, 2500);
 //General Variables
 let passcode = false
 let horizontalScreen = false

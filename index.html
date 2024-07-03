@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,39 +8,64 @@
   <link rel="icon" href="./public/icon.png" type="image/png">
   <title>Nyx24</title>
 </head>
+
 <body>
-  <div id="loader" class="hidden"></div>
+  <div id="loader" class="hidden">
+    <div class="wrapper">
+      <div class="rings">
+        <div class="ring ring1">
+          <div class="ring ring2">
+            <div class="ring ring3">
+              <div class="ring ring4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="yearSelector" class="hidden">
-    <div id="years24" class="preview"><div>24</div></div>
-    <div id="years25" class="preview"><div class="locked">
-      <section class="countdown-container">
-  
-        <div class="days-container">
-          <div class="days"></div>
-          <div class="days-label">Dias</div>
-        </div>
-        
-        <div class="hours-container">
-          <div class="hours"></div>
-          <div class="hours-label">Horas</div>
-        </div>
-        
-        <div class="minutes-container">
-          <div class="minutes"></div>
-          <div class="minutes-label">Minutos</div>
-        </div>
-        
-        <div class="seconds-container">
-          <div class="seconds"></div>
-          <div class="seconds-label">Segundos</div>
-        </div>
-        
-      </section>
-    </div></div>
-    <div id="years26" class="preview"><div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div></div>
-    <div id="years27" class="preview"><div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div></div>
-    <div id="years28" class="preview"><div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div></div>
-    <div id="years29" class="preview"><div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div></div>
+    <div id="years24" class="preview">
+      <div>24</div>
+    </div>
+    <div id="years25" class="preview">
+      <div class="locked">
+        <section class="countdown-container">
+
+          <div class="days-container">
+            <div class="days"></div>
+            <div class="days-label">Dias</div>
+          </div>
+
+          <div class="hours-container">
+            <div class="hours"></div>
+            <div class="hours-label">Horas</div>
+          </div>
+
+          <div class="minutes-container">
+            <div class="minutes"></div>
+            <div class="minutes-label">Minutos</div>
+          </div>
+
+          <div class="seconds-container">
+            <div class="seconds"></div>
+            <div class="seconds-label">Segundos</div>
+          </div>
+
+        </section>
+      </div>
+    </div>
+    <div id="years26" class="preview">
+      <div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div>
+    </div>
+    <div id="years27" class="preview">
+      <div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div>
+    </div>
+    <div id="years28" class="preview">
+      <div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div>
+    </div>
+    <div id="years29" class="preview">
+      <div class="locked"><img src="./public/lock-icon.svg" alt="lock-icon"></div>
+    </div>
   </div>
 
   <div id="firstYear" class="hidden">
@@ -54,16 +80,16 @@
     </div>
     <div class="dialog-container">
       <div class="circle"></div>
-      <div  class="dialog-scene black-background">
+      <div class="dialog-scene black-background">
         <button id="card-button" class="hidden">CARD</button>
         <div class="card-container hidden">
-            <div id="card-1" class="card">
-              <div class="card-top"></div>
-              <div class="card-middle"></div>
-              <div class="card-bottom">
-              </div>
-              <div class="card-back"></div>
+          <div id="card-1" class="card">
+            <div class="card-top"></div>
+            <div class="card-middle"></div>
+            <div class="card-bottom">
             </div>
+            <div class="card-back"></div>
+          </div>
         </div>
         <div class="dialog-box left-dialog-box" onclick="leftActive()">
           <div class="dialog-content">
@@ -88,16 +114,16 @@
     </div> -->
     <div class="dialog-container">
       <div class="circle"></div>
-      <div  class="dialog-scene black-background">
+      <div class="dialog-scene black-background">
         <button id="card-button" class="hidden">CARD</button>
         <div class="card-container hidden">
-            <div id="card-1" class="card">
-              <div class="card-top"></div>
-              <div class="card-middle"></div>
-              <div class="card-bottom">
-              </div>
-              <div class="card-back"></div>
+          <div id="card-1" class="card">
+            <div class="card-top"></div>
+            <div class="card-middle"></div>
+            <div class="card-bottom">
             </div>
+            <div class="card-back"></div>
+          </div>
         </div>
         <div class="dialog-box left-dialog-box" onclick="leftActive()">
           <div class="dialog-content">
@@ -112,4 +138,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
