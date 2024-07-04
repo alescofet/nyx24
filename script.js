@@ -16,6 +16,7 @@ const yearSelector = document.getElementById("yearSelector")
 const loader = document.getElementById("loader")
 const firstYear = document.getElementById("firstYear")
 const years24 = document.getElementById("years24")
+const years25 = document.getElementById("years25")
 
 //General Variables
 let passcode = false
@@ -53,11 +54,11 @@ window.addEventListener('load', function() {
 });
 
 
-//let input = prompt("Como me llamas cariñosamente?")
+let input = prompt("Como me llamas cariñosamente?")
 
-//if(input.toLowerCase() === "osi"){
+if(input.toLowerCase() === "osi"){
   passcode = true
-//}
+}
 
 if(passcode === false){
   document.querySelector("body").innerHTML = ""
@@ -114,6 +115,10 @@ const countDownClock = (number) => {
     
       if (secondsLeft <= 0) {
         clearInterval(countdown);
+        setTimeout(() => {
+          loader.classList.add("hidden")
+        }, 1000);
+        years25.children[0].classList.add("hidden")
         return;
       };
 
