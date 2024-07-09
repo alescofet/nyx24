@@ -324,8 +324,12 @@ body{
   z-index: 1000;
 }
 .card-back {
-
   background-image: url('./public/cat_card_back_nobg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.card-back-couple-1{
+  background-image: url('./public/cat_card_back_nobg_1couple.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
