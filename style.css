@@ -51,11 +51,32 @@ body{
 #years24{
   background-image: url(public/24-years-1.jpg);
 }
+#couple1{
+  background-image: url(public/1-couple.jpg);
+  background-size: contain;
+  background-position: center;
+  background-color: black;
+  background-repeat: no-repeat;
+}
 #years25{
   background-image: url(public/25-years-1.jpg);
 }
+#couple2{
+  background-image: url(public/2-couple.jpg);
+  background-size: contain;
+  background-position: center;
+  background-color: black;
+  background-repeat: no-repeat;
+}
 #years26{
   background-image: url(public/26-years-1.jpg);
+}
+#couple3{
+  background-image: url(public/3-couple.jpg);
+  background-size: contain;
+  background-position: center;
+  background-color: black;
+  background-repeat: no-repeat;
 }
 #years27{
   background-image: url(public/27-years-1.jpg);
@@ -147,9 +168,69 @@ body{
   background-size: cover;
   background-position: center;
 }
+.cat-1-background{
+  background-image: url('./public/cats/cat-1.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.cat-2-background{
+  background-image: url('./public/cats/cat-2.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.cat-3-background{
+  background-image: url('./public/cats/cat-3.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.cat-4-background{
+  background-image: url('./public/cats/cat-4.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.cat-5-background{
+  background-image: url('./public/cats/cat-5.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.cat-6-background{
+  background-image: url('./public/cats/cat-6.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.cat-7-background{
+  background-image: url('./public/cats/cat-7.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.cat-8-background{
+  background-image: url('./public/cats/cat-8.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.cat-9-background{
+  background-image: url('./public/cats/cat-9.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.cat-10-background{
+  background-image: url('./public/cats/cat-10.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.cat-11-background{
+  background-image: url('./public/cats/cat-11.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.cat-12-background{
+  background-image: url('./public/cats/cat-12.jpg');
+  background-size: cover;
+  background-position: center;
+}
 /* Style for the left dialog box */
 .left-dialog-box {
-  justify-content: flex-start;
+  justify-content: center;
   align-self: flex-end; /* Change this line to align the left dialog box to the top */
 }
 .dialog-content {

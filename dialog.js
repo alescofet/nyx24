@@ -1,21 +1,22 @@
 export class dialog {
     constructor(backgroundArray, leftText, year) {
+        this.yearDiv = document.getElementById("year-"+year)
         this.year = year
         this.backgroundArray = backgroundArray;
         this.leftText = leftText;
-        this.leftDialogBox = document.querySelector('.left-dialog-box');
-        this.dialogScene = document.querySelector('.dialog-scene');
-        this.ring = document.querySelector('.circle');
+        this.leftDialogBox = this.yearDiv.querySelector('.left-dialog-box');
+        this.dialogScene = this.yearDiv.querySelector('.dialog-scene');
+        this.ring = this.yearDiv.querySelector('.circle');
         this.initial = true
         this.active = 'left'
         this.index = 0
         this.textAnimationActive = false
         this.leftTextSelector = this.leftDialogBox.querySelector('.text');
-        this.cardContainer = document.querySelector('.card-container')
-        this.cardButton = document.getElementById("card-button");
-        this.cardList = document.querySelectorAll('.card');
-        this.cardMiddleList = document.querySelectorAll('.card-middle');
-        this.cardBottomList = document.querySelectorAll('.card-bottom');
+        this.cardContainer = this.yearDiv.querySelector('.card-container')
+        this.cardButton = this.yearDiv.querySelector("#card-button");
+        this.cardList = this.yearDiv.querySelectorAll('.card');
+        this.cardMiddleList = this.yearDiv.querySelectorAll('.card-middle');
+        this.cardBottomList = this.yearDiv.querySelectorAll('.card-bottom');
         this.r = 10;
         this.x = 0
         this.y = 0
@@ -38,8 +39,8 @@ export class dialog {
             if (currentCharIndex < initialText.length) {
                 textElement.innerHTML += initialText.charAt(currentCharIndex);
                 currentCharIndex++;
-                setTimeout(type, 50); // Adjust the delay between each letter appearance
-                /* setTimeout(type, 1); */ // Uncomment for debugging
+                /* setTimeout(type, 50); */ // Adjust the delay between each letter appearance
+                setTimeout(type, 1); // Uncomment for debugging
             } else { this.textAnimationActive = false }
         };
 
@@ -60,12 +61,19 @@ export class dialog {
         const blackScreens = this.checkBlackScreens()
         if (!this.textAnimationActive) {
             if (this.index === this.leftText.length - 1) {
+                this.dialogScene.classList.remove(this.backgroundArray[this.index])
+                this.dialogScene.classList.add("black-background")
+                this.ring.classList.remove("hidden")
                 this.showCard()
                 localStorage.setItem("alreadySeen"+this.year, true)
             }
             /* if(this.index === 12){
               showCard()
             } */
+            if(this.initial && !this.dialogScene.classList.contains("black-background")){
+                this.ring.classList.add("hidden")
+            }
+            
             if (!this.initial && this.index < this.leftText.length - 1) {
                 this.dialogScene.classList.remove(this.backgroundArray[this.index])
                 this.index++

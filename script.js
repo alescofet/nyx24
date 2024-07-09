@@ -1,3 +1,4 @@
+import {couple1Params} from './couple1.js'
 import {dialog} from './dialog.js'
 import {year24Params} from './year24Params.js'
 
@@ -14,8 +15,10 @@ const checkLoaded = setInterval(() => {
 //Element Queries
 const yearSelector = document.getElementById("yearSelector")
 const loader = document.getElementById("loader")
-const firstYear = document.getElementById("firstYear")
+const firstYear = document.getElementById("year-24")
+const secondYear = document.getElementById("year-25")
 const years24 = document.getElementById("years24")
+const couple1 = document.getElementById("couple1")
 const years25 = document.getElementById("years25")
 
 //General Variables
@@ -51,6 +54,7 @@ window.addEventListener('load', function() {
     var image = new Image();
     image.src = images[i].src;
   }
+  
 });
 
 
@@ -68,7 +72,6 @@ if(passcode === false){
 
 // Show year24
 function showYear24() {
-  console.log("toggle year 24");
   yearSelector.classList.toggle("hidden")
   firstYear.classList.toggle("hidden")
   leftTextSelector.classList.add('typewriter');
@@ -90,6 +93,30 @@ function showYear24() {
   })
 }
 years24.addEventListener("click", showYear24)
+
+// Show year25
+function showCouple1() {
+  yearSelector.classList.toggle("hidden")
+  secondYear.classList.toggle("hidden")
+  leftTextSelector.classList.add('typewriter');
+  const year25Dialog = new dialog(couple1Params.backgroundArray, couple1Params.leftText, 25)
+  function leftActive(){
+    year25Dialog.leftActive()
+  }
+  function showCard(){
+    year25Dialog.showCard()
+  }
+  function trigger(event){
+    year25Dialog.trigger(event)
+  }
+  year25Dialog.leftActive()
+  year25Dialog.leftDialogBox.addEventListener("click", leftActive)
+  year25Dialog.cardButton.addEventListener("click", showCard)
+  year25Dialog.cardList.forEach((card) => {
+      card.addEventListener("click", trigger)
+  })
+}
+couple1.addEventListener("click", showCouple1)
 
 /* 
 <<<<<<<<<<<<<<<<<<<< TIMER JS CODE >>>>>>>>>>>>>>>>>>>>>>>>>
