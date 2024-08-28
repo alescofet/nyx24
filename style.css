@@ -553,7 +553,7 @@ body{
 .puzzle-piece {
   box-sizing: border-box;
   background-color: #eee; /* Light grey background for better visibility */
-  border: 1px solid #000; /* Border around pieces */
+  border: 0.5px solid #0d0d0d36; /* Border around pieces */
   cursor: pointer; /* Pointer cursor on hover */
 }
 

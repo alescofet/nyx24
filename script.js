@@ -97,9 +97,9 @@ function showYear24() {
 years24.addEventListener("click", showYear24)
 // Show year25
 function showYear25() {
-  const puzzle = new Puzzle('puzzle-container', './public/puzzles/puzzle1/foto-1.jpg', {
-    gridSize: 4, // 4x4 grid
-    pieceSize: 90, // 100x100 px pieces
+  const puzzle = new Puzzle('puzzle-container', './public/puzzles/puzzle2/foto.jpg','./public/puzzles/puzzle2/foto-final.jpg', {
+    difficulty: 2, // Dificultad
+    pieceSize: 100, // 100x100 px pieces
     showModel: true, // Show model image above puzzle
     modelSize: 300 // Size of the model image
   });

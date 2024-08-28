@@ -1,9 +1,10 @@
 export class Puzzle {
-    constructor(containerId, imagePath, options = {}) {
+    constructor(containerId, imagePath1,imagePath2, options = {}) {
         this.container = document.getElementById(containerId);
-        this.imagePath = imagePath;
-        this.gridSize = options.gridSize || 4; // Default 4x4 grid
-        this.pieceSize = options.pieceSize || 100; // Default 100x100 px pieces
+        this.imagePath = imagePath1;
+        this.finalImagePath = imagePath2;
+        this.gridSize = { rows: 4*options.difficulty, columns: 3*options.difficulty }; // 4x3 grid
+        this.pieceSize = options.pieceSize/options.difficulty || 100/options.difficulty; // Default 100x100 px pieces
         this.showModel = options.showModel || false; // Display model image
         this.modelSize = options.modelSize || 200; // Default size of model image
 
@@ -16,31 +17,30 @@ export class Puzzle {
 
     createPuzzle() {
         this.container.style.position = 'relative';
-        this.container.style.width = `${this.gridSize * this.pieceSize}px`;
-        this.container.style.height = `${this.gridSize * this.pieceSize}px`;
+        this.container.style.width = `${this.gridSize.columns * this.pieceSize}px`;
+        this.container.style.height = `${this.gridSize.rows * this.pieceSize}px`;
         this.container.innerHTML = '';
 
         // Crear todas las piezas
-        for (let y = 0; y < this.gridSize; y++) {
-            for (let x = 0; x < this.gridSize; x++) {
+        for (let row = 0; row < this.gridSize.rows; row++) {
+            for (let col = 0; col < this.gridSize.columns; col++) {
                 const piece = document.createElement('div');
                 piece.classList.add('puzzle-piece');
                 piece.style.width = `${this.pieceSize}px`;
                 piece.style.height = `${this.pieceSize}px`;
                 piece.style.position = 'absolute';
-                piece.style.left = `${x * this.pieceSize}px`;
-                piece.style.top = `${y * this.pieceSize}px`;
+                piece.style.left = `${col * this.pieceSize}px`;
+                piece.style.top = `${row * this.pieceSize}px`;
                 piece.style.backgroundImage = `url(${this.imagePath})`;
-                piece.style.backgroundPosition = `-${x * this.pieceSize}px -${y * this.pieceSize}px`;
-                piece.style.backgroundSize = `${this.gridSize * this.pieceSize}px ${this.gridSize * this.pieceSize}px`;
-                piece.style.border = '1px solid #000';
+                piece.style.backgroundPosition = `-${col * this.pieceSize}px -${row * this.pieceSize}px`;
+                piece.style.backgroundSize = `${this.gridSize.columns * this.pieceSize}px ${this.gridSize.rows * this.pieceSize}px`;
                 piece.style.cursor = 'pointer';
                 piece.draggable = true;
 
-                piece.dataset.correctX = x;
-                piece.dataset.correctY = y;
-                piece.dataset.currentX = x;
-                piece.dataset.currentY = y;
+                piece.dataset.correctX = col;
+                piece.dataset.correctY = row;
+                piece.dataset.currentX = col;
+                piece.dataset.currentY = row;
 
                 // Drag and drop events
                 piece.addEventListener('dragstart', this.dragStart.bind(this));
@@ -58,12 +58,13 @@ export class Puzzle {
 
     displayModelImage() {
         const modelImage = document.createElement('img');
+        modelImage.classList.add("modelPhoto")
         modelImage.src = this.imagePath;
         modelImage.alt = 'Puzzle Model';
         modelImage.style.width = `${this.modelSize}px`;
         modelImage.style.height = 'auto';
         modelImage.style.marginBottom = '20px';
-        this.container.insertAdjacentElement('beforebegin', modelImage);
+        this.container.insertAdjacentElement('afterend', modelImage);
     }
 
     shufflePieces() {
@@ -132,8 +133,8 @@ export class Puzzle {
                 this.swapPositions(piece, targetPiece);
                 setTimeout(() => {
                     if (this.checkSolution()) {
-                        alert('Congratulations, you have completed the puzzle!');
-                    }
+                    alert('Congratulations, you have completed the puzzle!');
+                }
                 }, 200);
             }
         }
@@ -145,7 +146,9 @@ export class Puzzle {
             const correctY = piece.dataset.correctY * this.pieceSize;
             return parseInt(piece.style.left) === correctX && parseInt(piece.style.top) === correctY;
         });
-
+        if(isSolved){
+            document.getElementsByClassName("modelPhoto")[0].setAttribute("src", this.finalImagePath)
+        }
         return isSolved;
     }
 
@@ -154,5 +157,11 @@ export class Puzzle {
             piece.style.left = `${piece.dataset.correctX * this.pieceSize}px`;
             piece.style.top = `${piece.dataset.correctY * this.pieceSize}px`;
         });
+        setTimeout(() => {
+            if (this.checkSolution()) {
+            alert('Congratulations, you have completed the puzzle!');
+        }
+        }, 200);
+        
     }
 }
