@@ -98,10 +98,10 @@ years24.addEventListener("click", showYear24)
 // Show year25
 function showYear25() {
   const puzzle = new Puzzle('puzzle-container', './public/puzzles/puzzle1/foto-1.jpg', {
-    gridSize: 3, // 4x4 grid
-    pieceSize: 100, // 100x100 px pieces
+    gridSize: 4, // 4x4 grid
+    pieceSize: 90, // 100x100 px pieces
     showModel: true, // Show model image above puzzle
-    modelSize: 40 // Size of the model image
+    modelSize: 300 // Size of the model image
   });
 
   document.getElementById('shuffle-btn').addEventListener('click', () => {

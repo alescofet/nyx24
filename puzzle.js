@@ -8,7 +8,6 @@ export class Puzzle {
         this.modelSize = options.modelSize || 200; // Default size of model image
 
         this.pieces = [];
-        this.emptySlot = { x: this.gridSize - 1, y: this.gridSize - 1 }; // Última posición será el hueco vacío
         this.createPuzzle();
         if (this.showModel) {
             this.displayModelImage();
@@ -24,7 +23,6 @@ export class Puzzle {
         // Crear todas las piezas
         for (let y = 0; y < this.gridSize; y++) {
             for (let x = 0; x < this.gridSize; x++) {
-
                 const piece = document.createElement('div');
                 piece.classList.add('puzzle-piece');
                 piece.style.width = `${this.pieceSize}px`;
@@ -69,45 +67,39 @@ export class Puzzle {
     }
 
     shufflePieces() {
-        // Shuffle pieces
         const numShuffles = 1000;
         for (let i = 0; i < numShuffles; i++) {
             const randomPiece = this.pieces[Math.floor(Math.random() * this.pieces.length)];
-            const emptyPiece = this.pieces.find(p => 
-                parseInt(p.dataset.currentX) === this.emptySlot.x && 
-                parseInt(p.dataset.currentY) === this.emptySlot.y
-            );
+            const targetPiece = this.pieces[Math.floor(Math.random() * this.pieces.length)];
 
-            if (emptyPiece) {
-                this.swapPositions(randomPiece, emptyPiece);
+            if (randomPiece !== targetPiece) {
+                this.swapPositions(randomPiece, targetPiece);
             }
         }
     }
 
-    swapPositions(piece, emptyPiece) {
-        if (!piece || !emptyPiece) return; // Avoid errors if pieces are undefined
+    swapPositions(piece, targetPiece) {
+        if (!piece || !targetPiece) return; // Avoid errors if pieces are undefined
 
-        // Get the current position of the piece
+        // Get the current position of the pieces
         const pieceX = parseInt(piece.dataset.currentX);
         const pieceY = parseInt(piece.dataset.currentY);
-
-        // Get the position of the empty slot
-        const emptyX = parseInt(emptyPiece.dataset.currentX);
-        const emptyY = parseInt(emptyPiece.dataset.currentY);
+        const targetX = parseInt(targetPiece.dataset.currentX);
+        const targetY = parseInt(targetPiece.dataset.currentY);
 
         // Swap positions
-        piece.style.left = `${emptyX * this.pieceSize}px`;
-        piece.style.top = `${emptyY * this.pieceSize}px`;
+        piece.style.left = `${targetX * this.pieceSize}px`;
+        piece.style.top = `${targetY * this.pieceSize}px`;
 
-        emptyPiece.style.left = `${pieceX * this.pieceSize}px`;
-        emptyPiece.style.top = `${pieceY * this.pieceSize}px`;
+        targetPiece.style.left = `${pieceX * this.pieceSize}px`;
+        targetPiece.style.top = `${pieceY * this.pieceSize}px`;
 
         // Update dataset values
-        piece.dataset.currentX = emptyX;
-        piece.dataset.currentY = emptyY;
+        piece.dataset.currentX = targetX;
+        piece.dataset.currentY = targetY;
 
-        emptyPiece.dataset.currentX = pieceX;
-        emptyPiece.dataset.currentY = pieceY;
+        targetPiece.dataset.currentX = pieceX;
+        targetPiece.dataset.currentY = pieceY;
     }
 
     dragStart(event) {
@@ -118,7 +110,8 @@ export class Puzzle {
                 y: parseInt(piece.dataset.currentY)
             }
         }));
-        piece.style.opacity = '0.5'; // Visual feedback when dragging
+        // Maintain brightness of pieces
+        piece.style.opacity = '1'; // No change in opacity during drag
     }
 
     dragOver(event) {
@@ -134,31 +127,26 @@ export class Puzzle {
         );
 
         if (piece) {
-            const emptyPiece = this.pieces.find(p => 
-                parseInt(p.dataset.currentX) === this.emptySlot.x && 
-                parseInt(p.dataset.currentY) === this.emptySlot.y
-            );
-
-            if (emptyPiece) {
-                this.swapPositions(piece, emptyPiece);
-                this.emptySlot.x = parseInt(piece.dataset.currentX);
-                this.emptySlot.y = parseInt(piece.dataset.currentY);
-                
-                if (this.checkSolution()) {
-                    alert('Congratulations, you have completed the puzzle!');
-                }
+            const targetPiece = event.target;
+            if (targetPiece && targetPiece.classList.contains('puzzle-piece')) {
+                this.swapPositions(piece, targetPiece);
+                setTimeout(() => {
+                    if (this.checkSolution()) {
+                        alert('Congratulations, you have completed the puzzle!');
+                    }
+                }, 200);
             }
         }
-
-        event.target.style.opacity = '1';
     }
 
     checkSolution() {
-        return this.pieces.every(piece => {
+        const isSolved = this.pieces.every(piece => {
             const correctX = piece.dataset.correctX * this.pieceSize;
             const correctY = piece.dataset.correctY * this.pieceSize;
             return parseInt(piece.style.left) === correctX && parseInt(piece.style.top) === correctY;
         });
+
+        return isSolved;
     }
 
     solvePuzzle() {
@@ -166,7 +154,5 @@ export class Puzzle {
             piece.style.left = `${piece.dataset.correctX * this.pieceSize}px`;
             piece.style.top = `${piece.dataset.correctY * this.pieceSize}px`;
         });
-        this.emptySlot.x = this.gridSize - 1;
-        this.emptySlot.y = this.gridSize - 1;
     }
 }

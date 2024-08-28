@@ -542,9 +542,12 @@ body{
 #puzzle-container {
   display: flex;
   flex-wrap: wrap;
-  width: 400px; /* Ajusta el tamaño del contenedor */
+  width: 320px; /* Ajusta el tamaño del contenedor */
+  height: 240px; /* Ajusta el tamaño del contenedor */
   margin-bottom: 20px;
-  position: relative;
+  flex-direction: row;
+  align-items: center;
+  
 }
 
 .puzzle-piece {
@@ -558,4 +561,11 @@ body{
   width: 200px;
   height: auto;
   margin-bottom: 20px;
+}
+
+.flex-row-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
 }
