@@ -534,3 +534,31 @@ body{
 .theme1 {
   background-color: #ffad00;
 }
+
+/* 
+<<<<<<<<<<<<<<<<<<<< Puzzle CSS >>>>>>>>>>>>>>>>>>>>>>>
+*/
+
+#puzzle-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px; /* Ajusta el tamaño del contenedor */
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.puzzle-piece {
+  width: 100px; /* Ajusta el tamaño de las piezas */
+  height: 100px;
+  background-size: 400px 400px; /* Tamaño de fondo igual al contenedor */
+  position: absolute;
+  cursor: pointer;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+
+#model-image {
+  width: 200px;
+  height: auto;
+  margin-bottom: 20px;
+}

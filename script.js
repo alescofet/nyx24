@@ -1,5 +1,6 @@
+import {Dialog} from './dialog.js'
+import {Puzzle} from './puzzle.js'
 import {couple1Params} from './couple1.js'
-import {dialog} from './dialog.js'
 import {year24Params} from './year24Params.js'
 
 //Initialize countdown
@@ -17,6 +18,7 @@ const yearSelector = document.getElementById("yearSelector")
 const loader = document.getElementById("loader")
 const firstYear = document.getElementById("year-24")
 const secondYear = document.getElementById("year-25")
+const firstCouple = document.getElementById("couple-1")
 const years24 = document.getElementById("years24")
 const couple1 = document.getElementById("couple1")
 const years25 = document.getElementById("years25")
@@ -75,7 +77,7 @@ function showYear24() {
   yearSelector.classList.toggle("hidden")
   firstYear.classList.toggle("hidden")
   leftTextSelector.classList.add('typewriter');
-  const year24Dialog = new dialog(year24Params.backgroundArray, year24Params.leftText, 24)
+  const year24Dialog = new Dialog(year24Params.backgroundArray, year24Params.leftText, 24)
   function leftActive(){
     year24Dialog.leftActive()
   }
@@ -93,26 +95,47 @@ function showYear24() {
   })
 }
 years24.addEventListener("click", showYear24)
+// Show year25
+function showYear25() {
+  const puzzle = new Puzzle('puzzle-container', './public/puzzles/puzzle1/foto-1.jpg', {
+    gridSize: 6, // 4x4 grid
+    pieceSize: 100, // 100x100 px pieces
+    showModel: true, // Show model image above puzzle
+    modelSize: 40 // Size of the model image
+  });
+
+  document.getElementById('shuffle-btn').addEventListener('click', () => {
+      puzzle.shufflePieces();
+  });
+
+  document.getElementById('solve-btn').addEventListener('click', () => {
+      puzzle.solvePuzzle();
+  });
+
+  yearSelector.classList.toggle("hidden")
+  secondYear.classList.toggle("hidden")
+}
+years25.addEventListener("click", showYear25)
 
 // Show year25
 function showCouple1() {
   yearSelector.classList.toggle("hidden")
-  secondYear.classList.toggle("hidden")
+  firstCouple.classList.toggle("hidden")
   leftTextSelector.classList.add('typewriter');
-  const year25Dialog = new dialog(couple1Params.backgroundArray, couple1Params.leftText, 25)
+  const couple1Dialog = new Dialog(couple1Params.backgroundArray, couple1Params.leftText, 1)
   function leftActive(){
-    year25Dialog.leftActive()
+    couple1Dialog.leftActive()
   }
   function showCard(){
-    year25Dialog.showCard()
+    couple1Dialog.showCard()
   }
   function trigger(event){
-    year25Dialog.trigger(event)
+    couple1Dialog.trigger(event)
   }
-  year25Dialog.leftActive()
-  year25Dialog.leftDialogBox.addEventListener("click", leftActive)
-  year25Dialog.cardButton.addEventListener("click", showCard)
-  year25Dialog.cardList.forEach((card) => {
+  couple1Dialog.leftActive()
+  couple1Dialog.leftDialogBox.addEventListener("click", leftActive)
+  couple1Dialog.cardButton.addEventListener("click", showCard)
+  couple1Dialog.cardList.forEach((card) => {
       card.addEventListener("click", trigger)
   })
 }
@@ -177,7 +200,7 @@ const countDownClock = (number) => {
 
 
 let date1 = new Date();
-let date2 = new Date("09/28/2024");
+let date2 = new Date("08/28/2024");
 
 // Calculating the time difference
 // of two dates

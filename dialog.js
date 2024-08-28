@@ -1,6 +1,7 @@
-export class dialog {
+export class Dialog {
     constructor(backgroundArray, leftText, year) {
-        this.yearDiv = document.getElementById("year-"+year)
+        this.celebration = year > 20 ? "year-" : "couple-"
+        this.yearDiv = document.getElementById(this.celebration+year)
         this.year = year
         this.backgroundArray = backgroundArray;
         this.leftText = leftText;
