@@ -22,32 +22,29 @@ export class Puzzle {
         this.container.innerHTML = '';
 
         // Crear todas las piezas
-        for (let y = 0; y <= this.gridSize; y++) {
-            for (let x = 0; x <= this.gridSize; x++) {
-                if (x === this.gridSize - 1 && y === this.gridSize - 1) {
-                    // No crear pieza para el hueco vacío
-                    continue;
-                }
+        for (let y = 0; y < this.gridSize; y++) {
+            for (let x = 0; x < this.gridSize; x++) {
 
                 const piece = document.createElement('div');
                 piece.classList.add('puzzle-piece');
                 piece.style.width = `${this.pieceSize}px`;
                 piece.style.height = `${this.pieceSize}px`;
+                piece.style.position = 'absolute';
                 piece.style.left = `${x * this.pieceSize}px`;
                 piece.style.top = `${y * this.pieceSize}px`;
                 piece.style.backgroundImage = `url(${this.imagePath})`;
                 piece.style.backgroundPosition = `-${x * this.pieceSize}px -${y * this.pieceSize}px`;
                 piece.style.backgroundSize = `${this.gridSize * this.pieceSize}px ${this.gridSize * this.pieceSize}px`;
-                piece.style.position = 'absolute';
                 piece.style.border = '1px solid #000';
                 piece.style.cursor = 'pointer';
-                piece.draggable = true; // Habilitar el arrastre
+                piece.draggable = true;
+
                 piece.dataset.correctX = x;
                 piece.dataset.correctY = y;
                 piece.dataset.currentX = x;
                 piece.dataset.currentY = y;
 
-                // Eventos de drag and drop
+                // Drag and drop events
                 piece.addEventListener('dragstart', this.dragStart.bind(this));
                 piece.addEventListener('dragover', this.dragOver.bind(this));
                 piece.addEventListener('drop', this.drop.bind(this));
@@ -57,14 +54,14 @@ export class Puzzle {
             }
         }
 
-        // Mezclar piezas al iniciar
+        // Shuffle pieces at startup
         this.shufflePieces();
     }
 
     displayModelImage() {
         const modelImage = document.createElement('img');
         modelImage.src = this.imagePath;
-        modelImage.alt = 'Modelo de Puzzle';
+        modelImage.alt = 'Puzzle Model';
         modelImage.style.width = `${this.modelSize}px`;
         modelImage.style.height = 'auto';
         modelImage.style.marginBottom = '20px';
@@ -72,39 +69,40 @@ export class Puzzle {
     }
 
     shufflePieces() {
-        // Mezclar piezas
+        // Shuffle pieces
         const numShuffles = 1000;
-        const emptyPiece = document.createElement('div');
-        emptyPiece.style.position = 'absolute';
-        emptyPiece.style.width = `${this.pieceSize}px`;
-        emptyPiece.style.height = `${this.pieceSize}px`;
-        emptyPiece.style.left = `${this.emptySlot.x * this.pieceSize}px`;
-        emptyPiece.style.top = `${this.emptySlot.y * this.pieceSize}px`;
-        this.container.appendChild(emptyPiece);
-
         for (let i = 0; i < numShuffles; i++) {
             const randomPiece = this.pieces[Math.floor(Math.random() * this.pieces.length)];
-            this.swapPositions(randomPiece, emptyPiece);
+            const emptyPiece = this.pieces.find(p => 
+                parseInt(p.dataset.currentX) === this.emptySlot.x && 
+                parseInt(p.dataset.currentY) === this.emptySlot.y
+            );
+
+            if (emptyPiece) {
+                this.swapPositions(randomPiece, emptyPiece);
+            }
         }
-        
-        this.container.removeChild(emptyPiece);
     }
 
     swapPositions(piece, emptyPiece) {
-        if (!piece) return; // Evitar errores si la pieza no existe
+        if (!piece || !emptyPiece) return; // Avoid errors if pieces are undefined
 
+        // Get the current position of the piece
         const pieceX = parseInt(piece.dataset.currentX);
         const pieceY = parseInt(piece.dataset.currentY);
-        const emptyX = parseInt(emptyPiece.style.left) / this.pieceSize;
-        const emptyY = parseInt(emptyPiece.style.top) / this.pieceSize;
 
+        // Get the position of the empty slot
+        const emptyX = parseInt(emptyPiece.dataset.currentX);
+        const emptyY = parseInt(emptyPiece.dataset.currentY);
+
+        // Swap positions
         piece.style.left = `${emptyX * this.pieceSize}px`;
         piece.style.top = `${emptyY * this.pieceSize}px`;
 
         emptyPiece.style.left = `${pieceX * this.pieceSize}px`;
         emptyPiece.style.top = `${pieceY * this.pieceSize}px`;
 
-        // Actualizar datos de posición
+        // Update dataset values
         piece.dataset.currentX = emptyX;
         piece.dataset.currentY = emptyY;
 
@@ -115,40 +113,44 @@ export class Puzzle {
     dragStart(event) {
         const piece = event.target;
         event.dataTransfer.setData('text/plain', JSON.stringify({
-            left: piece.style.left,
-            top: piece.style.top,
-            currentX: piece.dataset.currentX,
-            currentY: piece.dataset.currentY
+            piece: {
+                x: parseInt(piece.dataset.currentX),
+                y: parseInt(piece.dataset.currentY)
+            }
         }));
-        setTimeout(() => {
-            piece.style.opacity = '0.5'; // Visual feedback when dragging
-        }, 0);
+        piece.style.opacity = '0.5'; // Visual feedback when dragging
     }
 
     dragOver(event) {
-        event.preventDefault(); // Permitir el drop
+        event.preventDefault(); // Allow dropping
     }
 
     drop(event) {
         event.preventDefault();
+        const pieceData = JSON.parse(event.dataTransfer.getData('text/plain'));
+        const piece = this.pieces.find(p => 
+            parseInt(p.dataset.currentX) === pieceData.piece.x &&
+            parseInt(p.dataset.currentY) === pieceData.piece.y
+        );
 
-        const piece = event.target;
-        const draggedPieceData = JSON.parse(event.dataTransfer.getData('text/plain'));
+        if (piece) {
+            const emptyPiece = this.pieces.find(p => 
+                parseInt(p.dataset.currentX) === this.emptySlot.x && 
+                parseInt(p.dataset.currentY) === this.emptySlot.y
+            );
 
-        // Intercambiar posiciones si no se está arrastrando la pieza sobre sí misma
-        if (piece !== event.target) {
-            const emptyPiece = this.pieces.find(p => parseInt(p.dataset.currentX) === this.emptySlot.x && parseInt(p.dataset.currentY) === this.emptySlot.y);
             if (emptyPiece) {
                 this.swapPositions(piece, emptyPiece);
                 this.emptySlot.x = parseInt(piece.dataset.currentX);
                 this.emptySlot.y = parseInt(piece.dataset.currentY);
+                
                 if (this.checkSolution()) {
-                    alert('¡Felicidades, has completado el puzzle!');
+                    alert('Congratulations, you have completed the puzzle!');
                 }
             }
         }
 
-        piece.style.opacity = '1';
+        event.target.style.opacity = '1';
     }
 
     checkSolution() {

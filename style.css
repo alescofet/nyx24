@@ -548,13 +548,10 @@ body{
 }
 
 .puzzle-piece {
-  width: 100px; /* Ajusta el tamaño de las piezas */
-  height: 100px;
-  background-size: 400px 400px; /* Tamaño de fondo igual al contenedor */
-  position: absolute;
-  cursor: pointer;
-  border: 1px solid #000;
   box-sizing: border-box;
+  background-color: #eee; /* Light grey background for better visibility */
+  border: 1px solid #000; /* Border around pieces */
+  cursor: pointer; /* Pointer cursor on hover */
 }
 
 #model-image {
