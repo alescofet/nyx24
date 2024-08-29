@@ -1,8 +1,10 @@
 export class Puzzle {
-    constructor(containerId, imagePath1,imagePath2, options = {}) {
+    constructor(containerId, images, options = {}) {
         this.container = document.getElementById(containerId);
-        this.imagePath = imagePath1;
-        this.finalImagePath = imagePath2;
+        this.images = images
+        this.puzzleNum = 0
+        this.startImagePath = this.images[this.puzzleNum].start;
+        this.finalImagePath = this.images[this.puzzleNum].finish;
         this.gridSize = { rows: 4*options.difficulty, columns: 3*options.difficulty }; // 4x3 grid
         this.pieceSize = options.pieceSize/options.difficulty || 100/options.difficulty; // Default 100x100 px pieces
         this.showModel = options.showModel || false; // Display model image
@@ -31,7 +33,7 @@ export class Puzzle {
                 piece.style.position = 'absolute';
                 piece.style.left = `${col * this.pieceSize}px`;
                 piece.style.top = `${row * this.pieceSize}px`;
-                piece.style.backgroundImage = `url(${this.imagePath})`;
+                piece.style.backgroundImage = `url(${this.startImagePath})`;
                 piece.style.backgroundPosition = `-${col * this.pieceSize}px -${row * this.pieceSize}px`;
                 piece.style.backgroundSize = `${this.gridSize.columns * this.pieceSize}px ${this.gridSize.rows * this.pieceSize}px`;
                 piece.style.cursor = 'pointer';
@@ -59,7 +61,7 @@ export class Puzzle {
     displayModelImage() {
         const modelImage = document.createElement('img');
         modelImage.classList.add("modelPhoto")
-        modelImage.src = this.imagePath;
+        modelImage.src = this.startImagePath;
         modelImage.alt = 'Puzzle Model';
         modelImage.style.width = `${this.modelSize}px`;
         modelImage.style.height = 'auto';
@@ -151,6 +153,42 @@ export class Puzzle {
         }
         return isSolved;
     }
+
+    nextPuzzle() {
+        // Incrementa el número de puzzle si se ha resuelto el actual
+        this.puzzleNum++;
+        
+        if (this.puzzleNum >= this.images.length) {
+            this.puzzleNum = 0; // Reinicia si se alcanzó el final de la lista
+        }
+    
+        // Actualiza las rutas de imágenes
+        this.startImagePath = this.images[this.puzzleNum].start;
+        this.finalImagePath = this.images[this.puzzleNum].finish;
+        
+        // Limpiar el contenedor de las piezas anteriores
+        this.container.innerHTML = '';
+        this.pieces = []; // Reinicia la lista de piezas
+        
+        // Actualiza la imagen del modelo (la que se muestra como referencia)
+        const modelPhoto = document.getElementsByClassName("modelPhoto")[0];
+        if (modelPhoto) {
+            modelPhoto.setAttribute("src", this.startImagePath);
+        }
+    
+        // Crear el nuevo puzzle
+        this.createPuzzle();
+    }
+    
+
+    managePuzzles() {
+        if (this.checkSolution()) {
+            this.nextPuzzle(); // Pasa al siguiente puzzle si se resolvió el actual
+        } else {
+            this.shufflePieces(); // Mezcla las piezas si no se resolvió correctamente
+        }
+    }
+    
 
     solvePuzzle() {
         this.pieces.forEach(piece => {

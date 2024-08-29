@@ -97,15 +97,20 @@ function showYear24() {
 years24.addEventListener("click", showYear24)
 // Show year25
 function showYear25() {
-  const puzzle = new Puzzle('puzzle-container', './public/puzzles/puzzle2/foto.jpg','./public/puzzles/puzzle2/foto-final.jpg', {
-    difficulty: 2, // Dificultad
+  const images = [
+    {start: "./public/puzzles/puzzle1/foto.jpg", finish:"./public/puzzles/puzzle1/foto-final.jpg"},
+    {start: "./public/puzzles/puzzle2/foto.jpg", finish:"./public/puzzles/puzzle2/foto-final.jpg"},
+    {start: "./public/puzzles/puzzle3/foto.jpg", finish:"./public/puzzles/puzzle3/foto-final.jpg"}
+  ]
+  const puzzle = new Puzzle('puzzle-container', images, {
+    difficulty: 1, // Dificultad
     pieceSize: 100, // 100x100 px pieces
     showModel: true, // Show model image above puzzle
     modelSize: 300 // Size of the model image
   });
 
   document.getElementById('shuffle-btn').addEventListener('click', () => {
-      puzzle.shufflePieces();
+      puzzle.managePuzzles();
   });
 
   document.getElementById('solve-btn').addEventListener('click', () => {
@@ -117,7 +122,7 @@ function showYear25() {
 }
 years25.addEventListener("click", showYear25)
 
-// Show year25
+// Show couple1
 function showCouple1() {
   yearSelector.classList.toggle("hidden")
   firstCouple.classList.toggle("hidden")
