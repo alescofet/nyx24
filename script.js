@@ -104,9 +104,9 @@ function showYear25() {
   ]
   const puzzle = new Puzzle('puzzle-container', images, {
     difficulty: 1, // Dificultad
-    pieceSize: 100, // 100x100 px pieces
+    pieceSize: 75, // 100x100 px pieces
     showModel: true, // Show model image above puzzle
-    modelSize: 300 // Size of the model image
+    modelSize: 225 // Size of the model image
   });
 
   document.getElementById('shuffle-btn').addEventListener('click', () => {

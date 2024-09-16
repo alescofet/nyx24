@@ -1,8 +1,8 @@
 export class Puzzle {
     constructor(containerId, images, options = {}) {
         this.container = document.getElementById(containerId);
-        this.images = images
-        this.puzzleNum = 0
+        this.images = images;
+        this.puzzleNum = 0;
         this.startImagePath = this.images[this.puzzleNum].start;
         this.finalImagePath = this.images[this.puzzleNum].finish;
         this.gridSize = { rows: 4*options.difficulty, columns: 3*options.difficulty }; // 4x3 grid
@@ -23,7 +23,6 @@ export class Puzzle {
         this.container.style.height = `${this.gridSize.rows * this.pieceSize}px`;
         this.container.innerHTML = '';
 
-        // Crear todas las piezas
         for (let row = 0; row < this.gridSize.rows; row++) {
             for (let col = 0; col < this.gridSize.columns; col++) {
                 const piece = document.createElement('div');
@@ -44,17 +43,22 @@ export class Puzzle {
                 piece.dataset.currentX = col;
                 piece.dataset.currentY = row;
 
-                // Drag and drop events
+                // Eventos para escritorio
                 piece.addEventListener('dragstart', this.dragStart.bind(this));
                 piece.addEventListener('dragover', this.dragOver.bind(this));
                 piece.addEventListener('drop', this.drop.bind(this));
+
+                // Eventos para dispositivos móviles
+                piece.addEventListener('touchstart', this.touchStart.bind(this), { passive: false });
+                piece.addEventListener('touchmove', this.touchMove.bind(this), { passive: false });
+                piece.addEventListener('touchend', this.touchEnd.bind(this));
 
                 this.pieces.push(piece);
                 this.container.appendChild(piece);
             }
         }
 
-        // Shuffle pieces at startup
+        // Mezclar las piezas al iniciar
         this.shufflePieces();
     }
 
@@ -82,27 +86,67 @@ export class Puzzle {
     }
 
     swapPositions(piece, targetPiece) {
-        if (!piece || !targetPiece) return; // Avoid errors if pieces are undefined
-
-        // Get the current position of the pieces
         const pieceX = parseInt(piece.dataset.currentX);
         const pieceY = parseInt(piece.dataset.currentY);
         const targetX = parseInt(targetPiece.dataset.currentX);
         const targetY = parseInt(targetPiece.dataset.currentY);
 
-        // Swap positions
         piece.style.left = `${targetX * this.pieceSize}px`;
         piece.style.top = `${targetY * this.pieceSize}px`;
 
         targetPiece.style.left = `${pieceX * this.pieceSize}px`;
         targetPiece.style.top = `${pieceY * this.pieceSize}px`;
 
-        // Update dataset values
         piece.dataset.currentX = targetX;
         piece.dataset.currentY = targetY;
 
         targetPiece.dataset.currentX = pieceX;
         targetPiece.dataset.currentY = pieceY;
+    }
+
+    touchStart(event) {
+        event.preventDefault();
+        const touch = event.touches[0];
+        const piece = event.target;
+        this.dragStartPiece = piece;
+        this.touchStartX = touch.clientX;
+        this.touchStartY = touch.clientY;
+        this.initialLeft = parseFloat(piece.style.left);
+        this.initialTop = parseFloat(piece.style.top);
+    }
+
+    touchMove(event) {
+        event.preventDefault();
+        const touch = event.touches[0];
+        const dx = touch.clientX - this.touchStartX;
+        const dy = touch.clientY - this.touchStartY;
+        this.dragStartPiece.style.left = `${this.initialLeft + dx}px`;
+        this.dragStartPiece.style.top = `${this.initialTop + dy}px`;
+    }
+
+    touchEnd(event) {
+        event.preventDefault();
+        const piece = this.dragStartPiece;
+        const targetX = Math.round(parseFloat(piece.style.left) / this.pieceSize);
+        const targetY = Math.round(parseFloat(piece.style.top) / this.pieceSize);
+
+        if (targetX >= 0 && targetX < this.gridSize.columns && targetY >= 0 && targetY < this.gridSize.rows) {
+            const targetPiece = this.pieces.find(p => parseInt(p.dataset.currentX) === targetX && parseInt(p.dataset.currentY) === targetY);
+            if (targetPiece) {
+                this.swapPositions(piece, targetPiece);
+            } else {
+                piece.style.left = `${piece.dataset.currentX * this.pieceSize}px`;
+                piece.style.top = `${piece.dataset.currentY * this.pieceSize}px`;
+            }
+        } else {
+            piece.style.left = `${piece.dataset.currentX * this.pieceSize}px`;
+            piece.style.top = `${piece.dataset.currentY * this.pieceSize}px`;
+        }
+        this.dragStartPiece = null;
+
+        if (this.checkSolution()) {
+            alert('¡Felicidades, has completado el rompecabezas!');
+        }
     }
 
     dragStart(event) {
@@ -113,18 +157,16 @@ export class Puzzle {
                 y: parseInt(piece.dataset.currentY)
             }
         }));
-        // Maintain brightness of pieces
-        piece.style.opacity = '1'; // No change in opacity during drag
     }
 
     dragOver(event) {
-        event.preventDefault(); // Allow dropping
+        event.preventDefault();
     }
 
     drop(event) {
         event.preventDefault();
         const pieceData = JSON.parse(event.dataTransfer.getData('text/plain'));
-        const piece = this.pieces.find(p => 
+        const piece = this.pieces.find(p =>
             parseInt(p.dataset.currentX) === pieceData.piece.x &&
             parseInt(p.dataset.currentY) === pieceData.piece.y
         );
@@ -133,12 +175,11 @@ export class Puzzle {
             const targetPiece = event.target;
             if (targetPiece && targetPiece.classList.contains('puzzle-piece')) {
                 this.swapPositions(piece, targetPiece);
-                setTimeout(() => {
-                    if (this.checkSolution()) {
-                    alert('Congratulations, you have completed the puzzle!');
-                }
-                }, 200);
             }
+        }
+
+        if (this.checkSolution()) {
+            alert('¡Felicidades, has completado el rompecabezas!');
         }
     }
 
@@ -148,9 +189,17 @@ export class Puzzle {
             const correctY = piece.dataset.correctY * this.pieceSize;
             return parseInt(piece.style.left) === correctX && parseInt(piece.style.top) === correctY;
         });
-        if(isSolved){
-            document.getElementsByClassName("modelPhoto")[0].setAttribute("src", this.finalImagePath)
+    
+        if (isSolved) {
+            document.getElementsByClassName("modelPhoto")[0].setAttribute("src", this.finalImagePath);
+            document.getElementById("completion-text").style.display = 'block';
+            
+            const solveBtn = document.getElementById('solve-btn');
+            solveBtn.textContent = 'Next'; // Cambiar el texto del botón
+            solveBtn.removeEventListener('click', this.solvePuzzle); // Eliminar evento "resolver"
+            solveBtn.addEventListener('click', () => this.nextPuzzle()); // Añadir evento "next"
         }
+    
         return isSolved;
     }
 
@@ -161,7 +210,16 @@ export class Puzzle {
         if (this.puzzleNum >= this.images.length) {
             this.puzzleNum = 0; // Reinicia si se alcanzó el final de la lista
         }
-    
+        
+        // Esconde el texto al cambiar de puzle
+        document.getElementById("completion-text").style.display = 'none';
+        
+        // Restablece el botón a "Resolver"
+        const solveBtn = document.getElementById('solve-btn');
+        solveBtn.textContent = 'Resolver'; // Cambia el texto del botón a "Resolver"
+        solveBtn.removeEventListener('click', this.nextPuzzle); // Elimina el evento "Next"
+        solveBtn.addEventListener('click', () => this.solvePuzzle()); // Añade el evento "Resolver"
+        
         // Actualiza las rutas de imágenes
         this.startImagePath = this.images[this.puzzleNum].start;
         this.finalImagePath = this.images[this.puzzleNum].finish;
@@ -175,11 +233,10 @@ export class Puzzle {
         if (modelPhoto) {
             modelPhoto.setAttribute("src", this.startImagePath);
         }
-    
+
         // Crear el nuevo puzzle
         this.createPuzzle();
     }
-    
 
     managePuzzles() {
         if (this.checkSolution()) {
@@ -188,7 +245,6 @@ export class Puzzle {
             this.shufflePieces(); // Mezcla las piezas si no se resolvió correctamente
         }
     }
-    
 
     solvePuzzle() {
         this.pieces.forEach(piece => {
@@ -197,9 +253,8 @@ export class Puzzle {
         });
         setTimeout(() => {
             if (this.checkSolution()) {
-            alert('Congratulations, you have completed the puzzle!');
-        }
+                alert('Congratulations, you have completed the puzzle!');
+            }
         }, 200);
-        
     }
 }
