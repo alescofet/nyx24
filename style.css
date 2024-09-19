@@ -604,7 +604,7 @@ body{
   box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5); /* Focus shadow */
 }
 
-#completion-text {
+.completion-text {
   font-size: 1.2em;
   color: #333;
   padding: 10px;
@@ -612,6 +612,8 @@ body{
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 225px;
+  height: 300px;
 }
 
 @media screen and (max-width: 900px) {

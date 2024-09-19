@@ -1,7 +1,8 @@
 export class Puzzle {
-    constructor(containerId, images, options = {}) {
+    constructor(containerId, images,texts, options = {}) {
         this.container = document.getElementById(containerId);
         this.images = images;
+        this.texts = texts
         this.puzzleNum = 0;
         this.startImagePath = this.images[this.puzzleNum].start;
         this.finalImagePath = this.images[this.puzzleNum].finish;
@@ -11,6 +12,7 @@ export class Puzzle {
         this.modelSize = options.modelSize || 200; // Default size of model image
 
         this.pieces = [];
+        
         this.createPuzzle();
         if (this.showModel) {
             this.displayModelImage();
@@ -18,6 +20,7 @@ export class Puzzle {
     }
 
     createPuzzle() {
+        
         this.container.style.position = 'relative';
         this.container.style.width = `${this.gridSize.columns * this.pieceSize}px`;
         this.container.style.height = `${this.gridSize.rows * this.pieceSize}px`;
@@ -71,6 +74,17 @@ export class Puzzle {
         modelImage.style.height = 'auto';
         modelImage.style.marginBottom = '20px';
         this.container.insertAdjacentElement('afterend', modelImage);
+    }
+
+    displayText(text) {
+        const existantText = document.querySelector('.completion-text');
+        if (existantText) {
+            existantText.remove();
+        }
+        const textDiv = document.createElement('div');
+        textDiv.classList.add("completion-text")
+        textDiv.innerText = text;
+        this.container.insertAdjacentElement('afterend', textDiv);
     }
 
     shufflePieces() {
@@ -164,6 +178,7 @@ export class Puzzle {
     }
 
     drop(event) {
+        console.log(event);
         event.preventDefault();
         const pieceData = JSON.parse(event.dataTransfer.getData('text/plain'));
         const piece = this.pieces.find(p =>
@@ -192,14 +207,22 @@ export class Puzzle {
     
         if (isSolved) {
             document.getElementsByClassName("modelPhoto")[0].setAttribute("src", this.finalImagePath);
-            document.getElementById("completion-text").style.display = 'block';
+            this.displayText(this.texts[this.puzzleNum])
             
-            const solveBtn = document.getElementById('solve-btn');
+            let solveBtn = document.getElementById('solve-btn');
             solveBtn.textContent = 'Next'; // Cambiar el texto del botón
-            solveBtn.removeEventListener('click', this.solvePuzzle); // Eliminar evento "resolver"
-            solveBtn.addEventListener('click', () => this.nextPuzzle()); // Añadir evento "next"
+            solveBtn.parentNode.replaceChild(solveBtn.cloneNode(true),solveBtn) // Eliminar evento "resolver"
+            solveBtn = document.getElementById('solve-btn');
+            solveBtn.addEventListener('click',() => {
+                this.nextPuzzle()
+            }); // Añadir evento "next"
         }
-    
+        if(isSolved && this.puzzleNum === 2){
+            const solveBtn = document.getElementById('solve-btn');
+            const shuffleBtn = document.getElementById('shuffle-btn')
+            solveBtn.classList.add("hidden")
+            shuffleBtn.classList.add("hidden")
+        }
         return isSolved;
     }
 
@@ -209,16 +232,20 @@ export class Puzzle {
         
         if (this.puzzleNum >= this.images.length) {
             this.puzzleNum = 0; // Reinicia si se alcanzó el final de la lista
+            return
         }
         
         // Esconde el texto al cambiar de puzle
-        document.getElementById("completion-text").style.display = 'none';
+        document.getElementsByClassName("completion-text")[0].style.display = 'none';
         
         // Restablece el botón a "Resolver"
-        const solveBtn = document.getElementById('solve-btn');
+        let solveBtn = document.getElementById('solve-btn');
         solveBtn.textContent = 'Resolver'; // Cambia el texto del botón a "Resolver"
-        solveBtn.removeEventListener('click', this.nextPuzzle); // Elimina el evento "Next"
-        solveBtn.addEventListener('click', () => this.solvePuzzle()); // Añade el evento "Resolver"
+        solveBtn.parentNode.replaceChild(solveBtn.cloneNode(true),solveBtn); // Elimina el evento "Next"
+        solveBtn = document.getElementById('solve-btn');
+        solveBtn.addEventListener('click', () => {
+            this.solvePuzzle()
+        }); // Añade el evento "Resolver"
         
         // Actualiza las rutas de imágenes
         this.startImagePath = this.images[this.puzzleNum].start;
@@ -253,7 +280,7 @@ export class Puzzle {
         });
         setTimeout(() => {
             if (this.checkSolution()) {
-                alert('Congratulations, you have completed the puzzle!');
+                alert('Felicidades!! Has completado el puzzle (Además de preciosa, lista😍)');
             }
         }, 200);
     }

@@ -102,7 +102,12 @@ function showYear25() {
     {start: "./public/puzzles/puzzle2/foto.jpg", finish:"./public/puzzles/puzzle2/foto-final.jpg"},
     {start: "./public/puzzles/puzzle3/foto.jpg", finish:"./public/puzzles/puzzle3/foto-final.jpg"}
   ]
-  const puzzle = new Puzzle('puzzle-container', images, {
+  const texts = [
+    "🎊Muchas felicidades preciosa!!🎊 Sabes que te quiero mucho y que te lo demostraré siempre que pueda(en este caso con besitos en el ascensor🤗)",
+    "Quiero que en el futuro hagamos muchos mas viajecitos para ver mundo y sobretodo, para darnos mimos y comer rico😋(Como en Bolonia🍝)",
+    "Y quiero que celebremos muchos más aniversarios juntos, haciendo escapaditas y planes chulis.(Como el del Mooma🍏🍎)"
+  ]
+  const puzzle = new Puzzle('puzzle-container', images, texts, {
     difficulty: 1, // Dificultad
     pieceSize: 75, // 100x100 px pieces
     showModel: true, // Show model image above puzzle
