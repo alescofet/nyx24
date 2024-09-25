@@ -114,10 +114,6 @@ function showYear25() {
     modelSize: 225 // Size of the model image
   });
 
-  document.getElementById('shuffle-btn').addEventListener('click', () => {
-      puzzle.managePuzzles();
-  });
-
   document.getElementById('solve-btn').addEventListener('click', () => {
       puzzle.solvePuzzle();
   });

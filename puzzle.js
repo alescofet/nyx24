@@ -3,7 +3,6 @@ export class Puzzle {
         this.yearDiv = document.getElementById('year-25')
         this.container = this.yearDiv.querySelector('.flex-row-container')
         this.puzzleContainer = this.yearDiv.querySelector('#'+containerId);
-        this.cardContainer = this.yearDiv.querySelector('.card-container')
         this.images = images;
         this.texts = texts
         this.puzzleNum = 0;
@@ -13,7 +12,7 @@ export class Puzzle {
         this.pieceSize = options.pieceSize/options.difficulty || 100/options.difficulty; // Default 100x100 px pieces
         this.showModel = options.showModel || false; // Display model image
         this.modelSize = options.modelSize || 200; // Default size of model image
-        this.cardContainer = this.yearDiv.querySelector('.card-container')
+        this.cardContainer = this.yearDiv.querySelector('.dialog-container')
         this.cardButton = this.yearDiv.querySelector("#card-button");
         this.cardList = this.yearDiv.querySelectorAll('.card');
         this.cardMiddleList = this.yearDiv.querySelectorAll('.card-middle');
@@ -233,9 +232,7 @@ export class Puzzle {
         }
         if(isSolved && this.puzzleNum === 2){
             const solveBtn = document.getElementById('solve-btn');
-            const shuffleBtn = document.getElementById('shuffle-btn')
             solveBtn.classList.add("hidden")
-            shuffleBtn.classList.add("hidden")
             setTimeout(() => {
                 this.showCard()
             }, 6000);

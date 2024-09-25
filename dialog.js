@@ -40,8 +40,8 @@ export class Dialog {
             if (currentCharIndex < initialText.length) {
                 textElement.innerHTML += initialText.charAt(currentCharIndex);
                 currentCharIndex++;
-                setTimeout(type, 50); // Adjust the delay between each letter appearance
-                /* setTimeout(type, 1); */ // Uncomment for debugging
+                /* setTimeout(type, 50); */ // Adjust the delay between each letter appearance
+                setTimeout(type, 1); // Uncomment for debugging
             } else { this.textAnimationActive = false }
         };
 

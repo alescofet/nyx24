@@ -313,8 +313,8 @@ body{
   border-radius: 30%;
   overflow: hidden;
   position: absolute;
-  top: 15.3vh;
-  left: 32.7vw;
+  top: 23vh;
+  left: 37vw;
   animation: rotation 3s linear infinite;
   width: 250px;
   height: 250px;
