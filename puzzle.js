@@ -1,6 +1,9 @@
 export class Puzzle {
     constructor(containerId, images,texts, options = {}) {
-        this.container = document.getElementById(containerId);
+        this.yearDiv = document.getElementById('year-25')
+        this.container = this.yearDiv.querySelector('.flex-row-container')
+        this.puzzleContainer = this.yearDiv.querySelector('#'+containerId);
+        this.cardContainer = this.yearDiv.querySelector('.card-container')
         this.images = images;
         this.texts = texts
         this.puzzleNum = 0;
@@ -10,6 +13,17 @@ export class Puzzle {
         this.pieceSize = options.pieceSize/options.difficulty || 100/options.difficulty; // Default 100x100 px pieces
         this.showModel = options.showModel || false; // Display model image
         this.modelSize = options.modelSize || 200; // Default size of model image
+        this.cardContainer = this.yearDiv.querySelector('.card-container')
+        this.cardButton = this.yearDiv.querySelector("#card-button");
+        this.cardList = this.yearDiv.querySelectorAll('.card');
+        this.cardMiddleList = this.yearDiv.querySelectorAll('.card-middle');
+        this.cardBottomList = this.yearDiv.querySelectorAll('.card-bottom');
+        this.r = 10;
+        this.x = 0
+        this.y = 0
+        this.angle = 0, this.x, this.y;
+        this.side = -1
+        this.animationOngoing = false
 
         this.pieces = [];
         
@@ -21,10 +35,10 @@ export class Puzzle {
 
     createPuzzle() {
         
-        this.container.style.position = 'relative';
-        this.container.style.width = `${this.gridSize.columns * this.pieceSize}px`;
-        this.container.style.height = `${this.gridSize.rows * this.pieceSize}px`;
-        this.container.innerHTML = '';
+        this.puzzleContainer.style.position = 'relative';
+        this.puzzleContainer.style.width = `${this.gridSize.columns * this.pieceSize}px`;
+        this.puzzleContainer.style.height = `${this.gridSize.rows * this.pieceSize}px`;
+        this.puzzleContainer.innerHTML = '';
 
         for (let row = 0; row < this.gridSize.rows; row++) {
             for (let col = 0; col < this.gridSize.columns; col++) {
@@ -57,7 +71,7 @@ export class Puzzle {
                 piece.addEventListener('touchend', this.touchEnd.bind(this));
 
                 this.pieces.push(piece);
-                this.container.appendChild(piece);
+                this.puzzleContainer.appendChild(piece);
             }
         }
 
@@ -73,7 +87,7 @@ export class Puzzle {
         modelImage.style.width = `${this.modelSize}px`;
         modelImage.style.height = 'auto';
         modelImage.style.marginBottom = '20px';
-        this.container.insertAdjacentElement('afterend', modelImage);
+        this.puzzleContainer.insertAdjacentElement('afterend', modelImage);
     }
 
     displayText(text) {
@@ -84,7 +98,7 @@ export class Puzzle {
         const textDiv = document.createElement('div');
         textDiv.classList.add("completion-text")
         textDiv.innerText = text;
-        this.container.insertAdjacentElement('afterend', textDiv);
+        this.puzzleContainer.insertAdjacentElement('afterend', textDiv);
     }
 
     shufflePieces() {
@@ -159,7 +173,7 @@ export class Puzzle {
         this.dragStartPiece = null;
 
         if (this.checkSolution()) {
-            alert('¡Felicidades, has completado el rompecabezas!');
+            alert('Felicidades!! Has completado el puzzle (Además de preciosa, lista😍)');
         }
     }
 
@@ -194,7 +208,7 @@ export class Puzzle {
         }
 
         if (this.checkSolution()) {
-            alert('¡Felicidades, has completado el rompecabezas!');
+            alert('Felicidades!! Has completado el puzzle (Además de preciosa, lista😍)');
         }
     }
 
@@ -215,13 +229,16 @@ export class Puzzle {
             solveBtn = document.getElementById('solve-btn');
             solveBtn.addEventListener('click',() => {
                 this.nextPuzzle()
-            }); // Añadir evento "next"
+            });
         }
         if(isSolved && this.puzzleNum === 2){
             const solveBtn = document.getElementById('solve-btn');
             const shuffleBtn = document.getElementById('shuffle-btn')
             solveBtn.classList.add("hidden")
             shuffleBtn.classList.add("hidden")
+            setTimeout(() => {
+                this.showCard()
+            }, 6000);
         }
         return isSolved;
     }
@@ -252,7 +269,7 @@ export class Puzzle {
         this.finalImagePath = this.images[this.puzzleNum].finish;
         
         // Limpiar el contenedor de las piezas anteriores
-        this.container.innerHTML = '';
+        this.puzzleContainer.innerHTML = '';
         this.pieces = []; // Reinicia la lista de piezas
         
         // Actualiza la imagen del modelo (la que se muestra como referencia)
@@ -283,5 +300,58 @@ export class Puzzle {
                 alert('Felicidades!! Has completado el puzzle (Además de preciosa, lista😍)');
             }
         }, 200);
+    }
+
+    showCard() {
+        this.cardContainer.classList.toggle('hidden')
+        this.container.classList.toggle('hidden')
+        const card1 = this.yearDiv.querySelector('#card-1')
+        card1.addEventListener("click",(event) => this.trigger(event))
+    }
+
+    
+    trigger(event) {
+        let cardNum = null
+        if ([1, 2, 3].includes(+event.target.offsetParent.id.split("-")[1])) {
+            cardNum = +event.target.offsetParent.id.split("-")[1]
+        }
+        if (!this.animationOngoing && cardNum !== null) {
+            this.animationOngoing = true
+            this.side = this.side * -1
+            this.loop(cardNum - 1)
+        }
+    }
+
+    loop(cardNum) {
+        this.angle += 0.2 * this.side;
+        if (this.angle * this.r === 90 && this.side === 1) {
+            if(this.year === 25){
+                this.cardList[cardNum].classList.toggle('card-back-year-25')
+            }else {
+                this.cardList[cardNum].classList.toggle('card-back-year-25')
+            }
+            this.cardMiddleList[cardNum].classList.toggle('hidden')
+            this.cardBottomList[cardNum].classList.toggle('hidden')
+        }
+        if (this.angle * this.r === 90 && this.side === -1) {
+            if(this.year === 25){
+                this.cardList[cardNum].classList.toggle('card-back-year-25')
+            }else {
+                this.cardList[cardNum].classList.toggle('card-back-year-25')
+            }
+            this.cardMiddleList[cardNum].classList.toggle('hidden')
+            this.cardBottomList[cardNum].classList.toggle('hidden')
+        }
+        if (this.angle * this.r > 180 || this.angle * this.r < 0) {
+            this.animationOngoing = false
+            return
+        }
+
+        this.x = Math.cos(this.angle) * this.r;
+        this.y = this.angle * this.r;
+
+        this.cardList[cardNum].style.transform = `rotateX(${0}deg) rotateY(${this.y}deg)`;
+
+        requestAnimationFrame(() => this.loop(cardNum));
     }
 }

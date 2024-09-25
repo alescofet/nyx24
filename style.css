@@ -333,6 +333,11 @@ body{
   background-repeat: no-repeat;
   background-size: cover;
 }
+.card-back-year-25{
+  background-image: url('./public/cat_card_back_nobg_25year.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .hidden{
   display: none!important;
 }
