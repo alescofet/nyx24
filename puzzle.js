@@ -235,7 +235,7 @@ export class Puzzle {
             solveBtn.classList.add("hidden")
             setTimeout(() => {
                 this.showCard()
-            }, 6000);
+            }, 10000);
         }
         return isSolved;
     }

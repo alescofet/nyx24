@@ -40,8 +40,8 @@ export class Dialog {
             if (currentCharIndex < initialText.length) {
                 textElement.innerHTML += initialText.charAt(currentCharIndex);
                 currentCharIndex++;
-                /* setTimeout(type, 50); */ // Adjust the delay between each letter appearance
-                setTimeout(type, 1); // Uncomment for debugging
+                setTimeout(type, 50); // Adjust the delay between each letter appearance
+                /* setTimeout(type, 1); */ // Uncomment for debugging
             } else { this.textAnimationActive = false }
         };
 
@@ -116,7 +116,7 @@ export class Dialog {
     loop(cardNum) {
         this.angle += 0.2 * this.side;
         if (this.angle * this.r === 90 && this.side === 1) {
-            if(this.year === 25){
+            if(this.year === 1){
                 this.cardList[cardNum].classList.toggle('card-back-couple-1')
             }else {
                 this.cardList[cardNum].classList.toggle('card-back')
@@ -125,7 +125,7 @@ export class Dialog {
             this.cardBottomList[cardNum].classList.toggle('hidden')
         }
         if (this.angle * this.r === 90 && this.side === -1) {
-            if(this.year === 25){
+            if(this.year === 1){
                 this.cardList[cardNum].classList.toggle('card-back-couple-1')
             }else {
                 this.cardList[cardNum].classList.toggle('card-back')
