@@ -206,7 +206,7 @@ const countDownClock = (number) => {
 
 
 let date1 = new Date();
-let date2 = new Date("09/28/2024");
+let date2 = new Date("07/09/2025");
 
 // Calculating the time difference
 // of two dates
